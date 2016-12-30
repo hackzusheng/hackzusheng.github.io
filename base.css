@@ -1,0 +1,95 @@
+*{
+	border: 0 none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+body{
+	background:#292929 none repeat scroll 0 0;
+}
+.container{
+	margin: 0 auto;
+	padding: 0;
+	position: relative;
+	width: 960px;
+}
+.container .six.columns {
+    width: 340px;
+}
+.container .ten.columns {
+    width: 580px;
+}
+.sixteen.columns {
+    width: 940px;
+}
+.container .column, .container .columns {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.logo {
+    margin: 20px 0;
+}
+
+#nav, .testimonials-arrow, .subscribe input.submit, .social, a.twitter, a.facebook, a.skype, a.linkedin, .next-project, .prev-project, .next-post, div.right, .comment, .comment .title span.right, .children {
+    float: right;
+}
+.navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+.navigation ul li {
+    display: inline;
+    float: left;
+    margin-left: 4px;
+    position: relative;
+}
+
+.navigation ul li a:hover, .navigation ul li a.selected, .navigation ul li a.active {
+    border-bottom: 3.5px solid #e64141;
+}
+.navigation ul li a:hover, .navigation ul li a.selected, .navigation ul li a.active, .navigation ul li ul li a, .services .item, .recent-work .item, .welcome, .qoute, .lightbox .item, .portfolio .item, #options li a, .popular-tags a, .meta {
+    background: #303030 none repeat scroll 0 0;
+}
+.navigation ul li a {
+    display: block;
+    padding: 37px 15px 34px;
+}
+.navigation ul li a, .sti-menu li a h2, .comment a:hover, .form-box label {
+    color: #ebebeb;
+}
+.navigation ul li a, .flex-caption, .qoute p, a.link, #horizontal-tabs ul.tabs li, #vertical-tabs ul.tabs li, input.subscribe-text, input.subscribe-button {
+    font-size: 16px;
+}
+body, .navigation ul li a, .navigation ul li ul li a, .subscribe input.mail, .subscribe input.submit, input.search, input.text, textarea, input.subscribe-text, input.subscribe-button {
+    font-family: "TitilliumText22LMedium",Arial,sans-serif;
+}
+a {
+    color: #dedede;
+    text-decoration: none;
+}
+a, .recent-work .item, .services .item .square, .clients ul.items li img, .subscribe input.submit, ul.team li, ul.team li img, ul.team li h3, .choose ul li, .our-services ul li h3, .icon-box, .square-list li, .check-list li, .plus-list li, .arrow-list li, .cross-list li, .star-list li, .minus-list li, .arrow2-list li, .circle-list li, .lightbox .item, .tables-column .footer h3 span, .thumbs li a, .button {
+    transition: all 0.3s ease-in 0s;
+}
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #404040;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 0 0;
+    clear: both;
+    height: 0;
+    margin: -1px 0 0;
+}
