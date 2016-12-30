@@ -114,5 +114,18 @@ hr {
     top: 0;
     width: 941px;
 }
+.welcome{
+	font-size: 22px;
+	color: #dedede;
+	margin: 25px 0;
+    padding: 30px 10%;
+}
+.color{
+	color: #e64141;
+}
+
+.welcome p, .description p {
+    line-height: 35px;
+}
 
 
