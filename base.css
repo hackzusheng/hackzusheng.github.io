@@ -314,3 +314,6 @@ h3.title, footer a {
 	font-size:12px;
 	color: #c4c4c4;
 }
+.services .item:hover{
+	border-right:5px solid #e64641;
+}
