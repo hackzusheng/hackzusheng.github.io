@@ -234,3 +234,83 @@ h1, h2, h3, h4, h5, h6, .services .item a, .services .item.active:hover a, .day,
 	color:#C4C4C4;
 	line-height: 40px;
 }
+.services, .recent-work, .recent-blog, .testimonials, .lightbox {
+    margin: 5px 0;
+}
+
+.container .eight.columns {
+    width: 460px;
+}
+
+.services .item {
+    border-right: 5px solid #585858;
+    cursor: pointer;
+    max-height: 104px;
+    min-height: 104px;
+    padding-right: 8px;
+    position: relative;
+}
+.services .item, .recent-work .item, .lightbox .item, .portfolio .item {
+    margin-bottom: 25px;
+}
+.navigation ul li a:hover, .navigation ul li a.selected, .navigation ul li a.active, .navigation ul li ul li a, .services .item, .recent-work .item, .welcome, .qoute, .lightbox .item, .portfolio .item, #options li a, .popular-tags a, .meta {
+    background: #303030 none repeat scroll 0 0;
+}
+
+.services .item .square {
+    height: 58px;
+    margin-right: 22px;
+    padding: 23px 0;
+    width: 110px;
+}
+.date, .services .item .square, .js .selectnav, .testimonials .author, .clients ul.items li, .date2, .date3, .icon-box, .pagination li, img.pic-2, .image-post.left, .prev-post, .avatar, .form-box {
+    float: left;
+}
+a, .recent-work .item, .services .item .square, .clients ul.items li img, .subscribe input.submit, ul.team li, ul.team li img, ul.team li h3, .choose ul li, .our-services ul li h3, .icon-box, .square-list li, .check-list li, .plus-list li, .arrow-list li, .cross-list li, .star-list li, .minus-list li, .arrow2-list li, .circle-list li, .lightbox .item, .tables-column .footer h3 span, .thumbs li a, .button {
+    transition: all 0.3s ease-in 0s;
+}
+
+.services .item .square img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.services h3 {
+    padding: 10px 0 3px;
+}
+h3 {
+    font-size: 17px;
+    line-height: 34px;
+}
+
+footer {
+    margin: 25px 0 0;
+    padding: 10px 0 30px;
+}
+footer {
+    background: #303030 none repeat scroll 0 0;
+}
+footer, .subscribe input.mail {
+    color: #a4a1a1;
+}
+
+.container .six.columns {
+    width: 340px;
+}
+
+span.copyright {
+    display: block;
+    padding-top: 7px;
+}
+.recent-blog .tags, .recent-blog .tags-comments, .tags-comments2, .subscribe input.mail, span.copyright, ul.team li p, .most-posts li span, .post-meta, .comment .title span.right {
+    font-size: 12px;
+}
+
+h3.title, footer a {
+    color: #e8e8e8;
+}
+.eight p{
+	font-size:12px;
+	color: #c4c4c4;
+}
