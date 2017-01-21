@@ -1,0 +1,317 @@
+*{
+	border: 0 none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+body{
+	background:#292929 none repeat scroll 0 0;
+}
+.container{
+	margin: 0 auto;
+	padding: 0;
+	position: relative;
+	width: 960px;
+}
+.container .six.columns {
+    width: 340px;
+}
+.container .ten.columns {
+    width: 580px;
+}
+.sixteen.columns {
+    width: 940px;
+}
+.container .column, .container .columns {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.logo {
+    margin: 20px 0;
+}
+
+#nav, .testimonials-arrow, .subscribe input.submit, .social, a.twitter, a.facebook, a.skype, a.linkedin, .next-project, .prev-project, .next-post, div.right, .comment, .comment .title span.right, .children {
+    float: right;
+}
+.navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+.navigation ul li {
+    display: inline;
+    float: left;
+    margin-left: 4px;
+    position: relative;
+}
+
+.navigation ul li a:hover, .navigation ul li a.selected, .navigation ul li a.active {
+    border-bottom: 3.5px solid #e64141;
+}
+.navigation ul li a:hover, .navigation ul li a.selected, .navigation ul li a.active, .navigation ul li ul li a, .services .item, .recent-work .item, .welcome, .qoute, .lightbox .item, .portfolio .item, #options li a, .popular-tags a, .meta {
+    background: #303030 none repeat scroll 0 0;
+}
+.navigation ul li a {
+    display: block;
+    padding: 37px 15px 34px;
+}
+.navigation ul li a, .sti-menu li a h2, .comment a:hover, .form-box label {
+    color: #ebebeb;
+}
+.navigation ul li a, .flex-caption, .qoute p, a.link, #horizontal-tabs ul.tabs li, #vertical-tabs ul.tabs li, input.subscribe-text, input.subscribe-button {
+    font-size: 16px;
+}
+body, .navigation ul li a, .navigation ul li ul li a, .subscribe input.mail, .subscribe input.submit, input.search, input.text, textarea, input.subscribe-text, input.subscribe-button {
+    font-family: "TitilliumText22LMedium",Arial,sans-serif;
+}
+a {
+    color: #dedede;
+    text-decoration: none;
+}
+a, .recent-work .item, .services .item .square, .clients ul.items li img, .subscribe input.submit, ul.team li, ul.team li img, ul.team li h3, .choose ul li, .our-services ul li h3, .icon-box, .square-list li, .check-list li, .plus-list li, .arrow-list li, .cross-list li, .star-list li, .minus-list li, .arrow2-list li, .circle-list li, .lightbox .item, .tables-column .footer h3 span, .thumbs li a, .button {
+    transition: all 0.3s ease-in 0s;
+}
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #404040;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 0 0;
+    clear: both;
+    height: 0;
+    margin: -1px 0 0;
+}
+
+#wrap_slider {
+    height: 394px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    top: 0;
+    width: 941px;
+}
+
+#crop {
+    transform: scale(1.3);
+    transform-origin: 0 0 0;
+}
+#crop {
+    height: 394px;
+    left: -120px;
+    position: relative;
+    top: 0;
+    width: 941px;
+}
+.welcome{
+	font-size: 22px;
+	color: #dedede;
+	margin: 25px 0;
+    padding: 30px 10%;
+}
+.color{
+	color: #e64141;
+}
+
+.welcome p, .description p {
+    line-height: 35px;
+}
+
+
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+}
+.clearfix::before, .clearfix::after, .row::before, .row::after {
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
+.clearfix::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+}
+.row::after, .clearfix::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after, .row::before, .row::after {
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
+.services, .recent-work, .recent-blog, .testimonials, .lightbox {
+    margin: 5px 0;
+}
+
+
+.container .twelve.columns {
+    width: 700px;
+}
+.container .column, .container .columns {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#accordion, .whyus, .recent-blog2, .who, .bottom {
+    margin-bottom: 25px !important;
+}
+
+
+h2.title {
+    border-bottom: 1px solid #404040;
+    margin-bottom: 25px;
+    padding: 5px 0 10px;
+}
+.title {
+    border-bottom: 1px solid #404040;
+    margin: 15px 0;
+    padding: 10px 0;
+}
+h2 {
+    font-size: 20px;
+    line-height: 30px;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+p, blockquote {
+    line-height: 22px;
+}
+
+.container .four.columns {
+    width: 220px;
+}
+.container .column, .container .columns {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#accordion, .whyus, .recent-blog2, .who, .bottom {
+    margin-bottom: 25px !important;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+span.line, .services .item:hover .square, .services .item.active .square, .flex-control-nav li a:hover, .flex-control-nav li a.active, .subscribe input.submit, a.link, #accordion h3.ui-state-active, .meter > span::after, .animate > span > span, .icon-box, .button.color, .button.black:hover, .highlight-color, .red .colorTip, #horizontal-tabs ul.tabs li.current, #horizontal-tabs ul.tabs li:hover, #vertical-tabs ul.tabs li.current, #vertical-tabs ul.tabs li:hover, #toggle-view li h3.color, .dropcap.color, .pagination.color li a.current, .pagination.color li a:hover, .tables-column.featured .header h3, .tables-column .footer.gray h3 span:hover, .tables-column .footer.black h3 span:hover, .tables-column.featured .footer h3 span, #options li a:hover, #options li a.selected, .popular-tags a:hover, .date-post .day, .date-post .month, .ei-slider-thumbs li.ei-slider-element, #under-construction, .slidecontrols li a.next, .slidecontrols li a.prev, .slidecontrols li a.carousel2-next, .slidecontrols li a.carousel2-prev, .slidecontrols li a.carousel3-next, .slidecontrols li a.carousel3-prev, .next-project, .prev-project {
+    background: #e64141 none repeat scroll 0 0;
+}
+span.line {
+    display: block;
+    height: 4px;
+    margin: 7px 0 -11px;
+    width: 50px;
+}
+h1, h2, h3, h4, h5, h6, .services .item a, .services .item.active:hover a, .day, .qoute h2, .welcome p, .js .selectnav, .description p, .use p, .progress-bar h5, #horizontal-tabs ul.tabs li, #vertical-tabs ul.tabs li, .square-list li, .square-list li a, .check-list li, .check-list li a, .plus-list li, .plus-list li a, .arrow-list li, .arrow-list li a, .cross-list li, .cross-list li a, .star-list li, .star-list li a, .minus-list li, .minus-list li a, .arrow2-list li, .arrow2-list li a, .circle-list li, .circle-list li a, table th, #options li a, .most-posts li a:hover, #clock-ticker .block, .tweet_list li a:hover, .under-construction .copyright a:hover, .sti-menu li a h2 {
+    color: #dedede;
+}
+.jie{
+	color:#C4C4C4;
+	line-height: 40px;
+}
+
+.breadcrumbs {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+ol, ul {
+    list-style: none;
+}
+
+
+.container .twelve.columns {
+    width: 700px;
+}
+.columns {
+    float: left;
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.container .three.columns {
+    width: 160px;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+#accordion, .whyus, .recent-blog2, .who, .bottom {
+    margin-bottom: 25px!important;
+}
+
+.container .eight.columns {
+    width: 460px;
+}
+.container .column, .container .columns {
+    float: left;
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+table th, table td {
+	color: #9b9b9b;
+    padding: 11px;
+    border: 1px solid #404040;
+}
+
+footer {
+    margin: 25px 0 0;
+    padding: 10px 0 30px;
+}
+footer {
+    background: #303030 none repeat scroll 0 0;
+}
+footer, .subscribe input.mail {
+    color: #a4a1a1;
+}
+
+.container .six.columns {
+    width: 340px;
+}
+
+span.copyright {
+    display: block;
+    padding-top: 7px;
+}
+.recent-blog .tags, .recent-blog .tags-comments, .tags-comments2, .subscribe input.mail, span.copyright, ul.team li p, .most-posts li span, .post-meta, .comment .title span.right {
+    font-size: 12px;
+}
+
+h3.title, footer a {
+    color: #e8e8e8;
+}
+.eight p{
+	font-size:11px;
+	color: #c4c4c4;
+}
+.services .item:hover{
+	border-right:5px solid #e64641;
+}
