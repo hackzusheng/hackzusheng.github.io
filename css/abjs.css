@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     vertical-align: baseline;
+	font-family:Microsoft YaHei;
 }
 body{
 	background:#292929 none repeat scroll 0 0;
@@ -315,7 +316,7 @@ span.copyright {
     padding-top: 7px;
 }
 .recent-blog .tags, .recent-blog .tags-comments, .tags-comments2, .subscribe input.mail, span.copyright, ul.team li p, .most-posts li span, .post-meta, .comment .title span.right {
-    font-size: 12px;
+    font-size: 8px;
 }
 
 h3.title, footer a {
@@ -327,4 +328,9 @@ h3.title, footer a {
 }
 .services .item:hover{
 	border-right:5px solid #e64641;
+}
+
+.five p {
+    font-size: 14px;
+    color: #c4c4c4;
 }
