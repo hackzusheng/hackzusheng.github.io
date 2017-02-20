@@ -1,1 +1,581 @@
-更新中
+<!DOCTYPE html>
+<html>
+<head>
+<title>x86汇编学习指南part1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<p>x86汇编学习指南part1</p>
+<p>原文链接：https://dere.github.io/2017-02-12/beginners-assembly-part1/</p>
+<h2>0x01 前言</h2>
+<p>现在写汇编教程的人很少，但我推荐给任何对编程感兴趣的人。它不仅与高级语言相比提供了不同的视角，而且在调试其他语言的代码时可能是有用的。在这两个系列文章中，我们将在x86汇编中实现一个逆波兰表示法计算器。当我们完成后，我们可以这样使用它：</p>
+<pre><code>$ ./calc &quot;32+6*&quot; # &quot;(3+2)*6&quot; in infix notation
+30
+</code></pre>
+
+<p>本篇文章第一部分的完整代码可以在下面链接中找到：</p>
+<p>https://gist.github.com/dere/79dca38ccc2a5e263d0635f1b7737ec9</p>
+<p>本系列文章的完整代码可以在下面链接中找到：</p>
+<p>https://gist.github.com/dere/9dff75a67710207e16cd6a8531393ccf</p>
+<p>在第1部分中，我们将从一个基本的&quot;Hello world！&quot;程序开始,确保你学习到足够的基础知识进行下一步，然后我们将进一步解释系统调用，调用堆栈，堆栈帧和x86调用约定。最后，我们将通过编写x86汇编的一些基本功能进行练习。在第2部分中，我们将从头开始编写我们的RPN计算器。</p>
+<p>阅读本篇文章你需要具备以下知识：</p>
+<p>1、一些编程经验</p>
+<p>2、了解计算机结构的基本知识（如什么是CPU寄存器）</p>
+<p>3、由于我们使用的是Linux操作系统，所以你还需要知道如何使用Linux命令行</p>
+<p>准备工作：</p>
+<p>1、如前所述，我们将使用Linux（64位或32位皆可）。在本系列文章的代码将无法在Windows或Mac OS X上运行。</p>
+<p>2、来自binutils的GNU链接器ld，它预先安装在大多数distros和NASM汇编器上。 在Ubuntu和Debian，您可以安装：</p>
+<pre><code>$ sudo apt-get install binutils nasm
+</code></pre>
+
+<p>3、建议保存一份ASCII码表</p>
+<p>http://www.asciitable.com/</p>
+<h2>0x02 Hello world</h2>
+<p>为确保您的准备工作成功，保存下面的代码到一个名为calc.asm：</p>
+<pre><code>; Allow the linker to find the _start symbol. The linker will begin program execution
+; there.
+global _start
+
+; Start the .rodata section of the executable, which stores constants (read only data)
+; It doesn't matter which order your sections are in, I just like putting .data first
+section .rodata
+; Declare some bytes at a symbol called hello_world. NASM's db pseudo-instruction
+; allows either a single byte value, a constant string, or a combination of the two
+; as seen here. 0xA = new line, and 0x0 = string-terminating null
+hello_world: db &quot;Hello world!&quot;, 0xA, 0x0
+
+; Start the .text section, which stores program code
+section .text
+_start:
+mov eax, 0x04   ; store the number 4 in the eax register (0x04 = write())
+mov ebx, 0x1; file descriptor (1 = standard output, 2 = standard error)
+mov ecx, hello_world; pointer to the string we're printing
+mov edx, 14 ; length of the string
+int 0x80; send the interrupt signal 0x80 which the OS interprets as
+;   a syscall
+
+mov eax, 0x01   ; 0x01 = exit()
+mov ebx, 0  ; 0 = no errors
+int 0x80
+</code></pre>
+
+<p>这些解释很简单，你可能对他如何工作还很困惑，不要紧，稍后我们将来讨论系统调用。</p>
+<p>先把文件calc.asm汇编成ELF格式的文件，然后将目标文件链接到一个可执行文件，运行：</p>
+<pre><code>$ nasm -f elf_i386 calc.asm -o calc
+$ ld -m elf_i386 calc.o -o calc
+</code></pre>
+
+<p>运行时，您应该会看到：</p>
+<pre><code>$ ./calc
+Hello world!
+</code></pre>
+
+<h2>0x03 Makefile</h2>
+<p>这部分是可选的，但是为了后面更轻松的汇编文件，我们可以创建使用Make。将以下保存到calc.asm相同目录下文件名为Makefile的文件：</p>
+<pre><code>CFLAGS= -f elf32
+LFLAGS= -m elf_i386
+
+all: calc
+
+calc: calc.o
+    ld $(LFLAGS) calc.o -o calc
+
+calc.o: calc.asm
+    nasm $(CFLAGS) calc.asm -o calc.o
+
+clean:
+    rm -f calc.o calc
+
+.INTERMEDIATE: calc.o
+</code></pre>
+
+<p>这样我们就可以简单的使用make而不是按照上面的操作了。</p>
+<h2>0x04 System calls</h2>
+<p>系统调用用于请求操作系统为我们执行操作。 在本文中，我们将只使用两个系统调用：</p>
+<p>write()：它将字符串写入文件或流</p>
+<p>exit()：退出程序</p>
+<pre><code>syscall 0x01: exit(int error_code)
+  error_code - use 0 to exit without errors, and use anything else (such as 1) for errors
+syscall 0x04: write(int fd, char *string, int length)
+  fd - use 1 for standard output, 2 for standard error output
+  string - a pointer to the first character of the string
+  length - the length of the string in bytes
+</code></pre>
+
+<p>系统调用通过将系统调用号存储在寄存器eax中，然后按ebx，ecx，edx中的参数的顺序设置。你可能注意到exit()只有一个参数 - 在这种情况下，ecx和edx的值无关紧要。</p>
+<img src="image/s1.png" />
+<h2>0x05 The call stack</h2>
+<img src="image/s2.png" />
+<p>调用堆栈是一个数据结构，用于存储有关每个函数调用信息。 每个函数调用在堆栈中都有一个称为“框架”的段，它存储一些关于当前函数调用的信息，例如该函数的局部变量和返回地址（程序应该在函数完成后跳转到哪里执行）。</p>
+<p>我立即注意到一个令人困惑的事情，堆栈在内存中向下增长。当你添加一些东西到堆栈的顶部，它将被插入到一个低于堆栈中之前的内存地址。 换句话说，随着堆栈增长，堆栈顶部的存储器地址减少。为了防止混淆，我不会提到这个事实，除非它是绝对必要的，因为我们正在处理堆栈上的顶部的内存地址。</p>
+<p>esp寄存器的目的是指向堆栈的顶部。esp以上的任何数据都被视为垃圾数据。执行推送指令将数据添加到堆栈顶部（或弹出以删除数据）也将移动esp。如果你知道你在干什么，你也可以直接操作esp。</p>
+<p>ebp寄存器是类似的，除了它总是指向当前堆栈帧的中间，直接在当前函数的局部变量之前（我们将在后面详细讨论）。 这给了我们允许我们访问函数的第一个参数的优点。但是，调用另一个函数不会自动移动ebp，我们必须每次手动执行。</p>
+<h2>0x06 The x86 calling convention</h2>
+<p>x86没有像高级语言那样内置了函数的概念。x86调用指令本质上只是一个jmp（goto）到内存中的另一个地方。为了使用子程序，我们使用其他语言的函数（可以接受参数并返回数据），我们必须遵循调用约定。 这也将确保子程序的寄存器不会在调用另一个函数时搞乱。</p>
+<h3>Caller rules</h3>
+<p>在调用函数之前，调用者必须：</p>
+<p>1、通过将调用者保存的寄存器推送到堆栈来保存它们。一些寄存器能够被调用的函数进行修改，以确保您不会在这些寄存器丢失数据，所以调用者必须在内存中保存它们（将它们推入堆栈）之前调用。 这些寄存器是eax，ecx和edx。 如果你不使用一些或所有这些寄存器，那么你不需要保存它们。</p>
+<p>2、将函数的参数以相反的顺序推送到堆栈。这个顺序是确保被调用的函数在从堆栈中弹出时，其参数的顺序是正确的。</p>
+<p>3、调用子程序。</p>
+<p>如果适用，该函数将其结果存储在eax中，紧接着在call之后，调用者必须：</p>
+<p>1、从堆栈中删除函数的参数。这通常可以通过简单地将字节数添加到esp来完成。不过不要忘记堆栈向下增长，所以要从堆栈中删除函数的参数，你必须添加。</p>
+<p>2、通过以相反的顺序从堆栈中弹出它们来恢复调用者保存的寄存器。调用函数不会修改其他寄存器。</p>
+<p>以下示例总结了上述调用者规则。在本例中，假设我有一个名为<code>_subtract</code>的函数，它接受两个整数（4字节）参数，并返回第一个参数减去第二个参数的结果。 在我的名为<code>_mysubroutine</code>的子程序中，下面我使用了10和2两个整数作为参数来调用<code>_subtract</code>：</p>
+<pre><code>_mysubroutine:
+; ...
+; some code here
+; ...
+push ecx   ; save the caller-saved registers (I choose to not save eax)
+push edx
+push 2 ; rule 2, push args in reverse order
+push 10
+call _subtract ; eax is now equal to 10-2=8
+add esp, 8 ; remove 8 bytes from the stack (2 arguments, 4 bytes each)
+pop edx; restore caller-saved registers
+pop ecx
+; ...
+; some code here where I use my amazingly-useful value in eax
+; ...
+</code></pre>
+
+<h3>Callee rules</h3>
+<p>为了被调用，子程序必须：</p>
+<p>1、通过将其推入堆栈来保存上一帧的基址指针寄存器ebp。</p>
+<p>2、调整ebp，目前是指向前一帧，调整他指向当前帧，也就是esp的当前值。</p>
+<p>3、如果需要为局部变量分配更多的空间，你可以通过移动堆栈指针esp。</p>
+<p>4、通过将被调用者保存的寄存器推入堆栈来保存它们。 这些是：ebx，edi和esi。 你不必保存你没有计划修改的任何寄存器。</p>
+<p>步骤1后的调用堆栈：</p>
+<img src="image/s3.png" />
+<p>步骤2后的调用堆栈：</p>
+<img src="image/s4.png" />
+<p>完成第4步后的调用堆栈：</p>
+<img src="image/s5.png" />
+<p>您可能会注意到在这些图中的每个堆栈帧返回地址。这些返回地址通过调用自动插入堆栈。ret指令弹出堆栈顶部的地址并跳转到该位置。我们没有使用它的任何东西，我也只解释了为什么函数的局部变量是高于ebp寄存器4个字节，而函数的参数低于ebp寄存器8个字节</p>
+<p>从上面的最后一个图中我们也发现了，函数的局部变量总是在地址ebp-4处，也就是ebp寄存器上面4个字节处开始。函数的参数总是在地址ebp+8处，也就是ebp寄存器下面8个字节处开始。如果你遵循被调用者规则，这将是任何函数的情况。</p>
+<p>一旦你的函数完成执行然后你想返回，你应该首先设置eax寄存器为你的函数的返回值。此外，你必须：</p>
+<p>1、通过以相反的顺序从堆栈中弹出它们来恢复被调用方保存的寄存器。</p>
+<p>2、如果你要取消你在上面步骤3中为局部变量分配的堆栈空间。你可以简单地通过设置esp到ebp来完成。 </p>
+<p>3、通过从堆栈中弹出它来恢复上一帧的扩展基址指针寄存器ebp。</p>
+<p>4、用ret返回</p>
+<p>现在我们将从上面的例子中实现_subtract函数：</p>
+<pre><code>_subtract:
+    push ebp; save the previous frame's base pointer
+    mov ebp, esp; adjust ebp
+    ; Here I'd allocate space on the stack for local variables, but I don't need any
+    ; Here I'd save the callee-saved registers, but I won't be modifying any
+    ; My function begins here
+    mov eax, [ebp+8]; copy the function's first argument into eax. The brackets mean
+    ; to access the data in memory at the location ebp+8
+    sub eax, [ebp+12]   ; subtract the second argument at ebp+12 from the first argument
+    ; My function ends here. eax is equal to my function's return value
+    ; Here I'd restore the callee-saved registers, but I didn't save any
+    ; Here I'd deallocate variables, but I didn't allocate any
+    pop ebp ; restore the previous frame's base pointer
+    ret
+</code></pre>
+
+<h3>enter and leave</h3>
+<p>你可能注意到在上面的例子中，一个函数总是开始相同：</p>
+<pre><code>push ebp
+mov ebp, esp
+</code></pre>
+
+<p>还有为局部变量分配空间。</p>
+<p>x86有一个方便的指令为我们完成这个步骤：</p>
+<pre><code>enter a b
+</code></pre>
+
+<p>其中a是您要为局部变量分配的字节数，b是嵌套级别，通常为0。</p>
+<p>然后函数总是以<code>mov esp, ebp</code>和<code>mov esp, ebp</code>结束。这也可以用一条指令替换：<code>leave</code>。使用这些，我们的例子就变成了：</p>
+<pre><code>_subtract:
+    enter 0, 0  ; save the previous frame's base pointer and adjust ebp
+        ; Here I'd save the callee-saved registers, but I won't be modifying any
+        ; My function begins here
+    mov eax, [ebp+8]; copy the function's first argument into eax. The brackets mean
+        ; to access the data in memory at the location ebp+8
+    sub eax, [ebp+12]   ; subtract the second argument at ebp+12 from the first argument
+        ; My function ends here. eax is equal to my function's return value
+        ; Here I'd restore the callee-saved registers, but I didn't save any
+    leave               ; deallocate and restore the previous frame's base pointer
+    ret
+</code></pre>
+
+<h2>0x07 Writing some basic functions</h2>
+<p>现在我们理解了调用约定，我们可以开始编写一些子程序。如果我们想要打印字符串，我们可以使用<code>_print_msg</code>函数，这非常的方便。</p>
+<p>对于那个函数，我们需要一个<code>_strlen</code>函数来计算字符串的长度。这个函数可能看起来像C语言：</p>
+<pre><code>size_t strlen(char *s) {
+    size_t length = 0;
+    while (*s != 0)
+    {   // loop start
+        length++;
+        s++;
+    }   // loop end
+    return length;
+}
+</code></pre>
+
+<p>在汇编中，使用上面的示例_subtract函数作为基础也很简单：</p>
+<pre><code>_strlen:
+enter 0, 0  ; save the previous frame's base pointer and adjust ebp
+            ; Here I'd save the callee-saved registers, but I won't be modifying any
+            ; My function begins here
+mov eax, 0  ; length = 0
+mov ecx, [ebp+8]; copy the function's first argument (pointer to the first 
+        ; character of the string) into ecx (which is caller-saved, so 
+        ; no need to save it)
+_strlen_loop_start: ; this is a label we can jump to
+cmp byte [ecx], 0   ; dereference that pointer and compare it to null. By default,
+        ; many times a memory access will default to reading 32 bits
+        ; (4 bytes) from memory. Other times it will always be
+        ; required. Here we use a Size Directive to only read one byte,
+        ; since a character is only one byte
+je _strlen_loop_end     ; jump out of the loop if it is equal to null
+inc eax     ; now we're in the loop body. add 1 to our return value
+add ecx, 1      ; increment to the next character in the string
+jmp _strlen_loop_start  ; jump back to the top of the loop
+_strlen_loop_end:
+        ; My function ends here. eax is equal to my function's return value
+        ; Here I'd restore the callee-saved registers, but I didn't save any
+leave   ; deallocate and restore the previous frame's base pointer
+ret  
+</code></pre>
+
+<p>这不是太坏，对吧？ 事先写C代码可能会帮助你很多，因为它的大部分可以直接转换为汇编。现在我们可以在<em>print</em>msg函数中使用这个函数，这将需要我们迄今为止学到的所有东西：</p>
+<pre><code>_print_msg:
+    enter 0, 0
+        ; My function begins here
+    mov eax, 0x04   ; 0x04 = the write() syscall
+    mov ebx, 0x1; 0x1 = standard output
+    mov ecx, [ebp+8]; the string we want to print is the first arg of this function
+        ; at this point we wish to set edx to the length of the string. time to call _strlen
+    push eax; save the caller-saved registers (I choose to not save edx)
+    push ecx   
+    push dword [ebp+8]  ; push _strlen's argument, the string argument to _print_msg. NASM
+        ; complains if you do not put a size directive here, and I'm not
+        ; sure why. Anyway, a pointer is a dword (4 bytes, 32 bits)
+    call _strlen; eax is now equal to the length of the string
+    mov edx, eax; move the length into edx where we wanted it
+    add esp, 4  ; remove 4 bytes from the stack (one 4-byte char* argument)
+    pop ecx ; restore caller-saved registers
+    pop eax
+        ; we're done calling _strlen and setting up the syscall
+    int 0x80
+    leave
+    ret
+</code></pre>
+
+<p>通过在完整的“Hello world！”程序中使用该函数，我们可以看到我们努力工作的成果：</p>
+<pre><code>_start:
+    enter 0, 0
+    ; save the caller-saved registers (I choose to not save any)
+    push hello_world    ; push the argument to _print_msg
+    call _print_msg
+    mov eax, 0x01   ; 0x01 = exit()
+    mov ebx, 0  ; 0 = no errors
+    int 0x80
+</code></pre>
+
+<p>到此我们第一部分的教程就结束了，我们已经介绍所需的x86基础知识，你现在需要编写基本的x86程序，在一篇文章中，我们将运用这些知识来编写我们的RPN就算器。</p>
+<h2>0x08 Additional reading</h2>
+<p>弗吉尼亚大学x86汇编指南</p>
+<ul>
+<li>http://www.cs.virginia.edu/~evans/cs216/guides/x86.html</li>
+</ul>
+<p>英特尔寄存器的艺术</p>
+<ul>
+<li>http://www.swansontec.com/sregisters.html</li>
+</ul>
+<p>NASM：Intel x86指令参考</p>
+<ul>
+<li>http://www.posix.nl/linuxassembly/nasmdochtml/nasmdoca.html</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
