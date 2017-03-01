@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>漏洞搜索工具-SearchSploit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>漏洞搜索工具-SearchSploit</h1>
+<p>作者：zusheng</p>
+<p>来源：<a href="http://www.isbase.cc">www.isbase.cc</a></p>
+<p>参考：https://www.exploit-db.com/searchsploit/</p>
+<h2>0x01 什么是SearchSploit</h2>
+<p>SearchSploit是一个用于搜索Exploit-DB漏洞数据的命令行工具，它可以允许你离线Exploit数据库，这样你就可以在本地执行离线搜索，这对于有时候不能联网的渗透工作非常的有用。</p>
+<p>项目地址：https://github.com/offensive-security/exploit-database</p>
+<h2>0x02 如何安装SearchSploit</h2>
+<h3>Kali Linux:</h3>
+<p>Kali Linux的标准GNOME版本，默认情况下已经安装完成了，如果你使用的是Kali Light variant或者自己定制的ISO，就需要自己手动安装了。</p>
+<pre><code>apt update &amp;&amp; apt -y install exploitdb
+</code></pre>
+
+<h3>Apple OS X / macOS</h3>
+<pre><code>brew update &amp;&amp; brew install exploitdb
+</code></pre>
+
+<h3>Git</h3>
+<p>获取：</p>
+<pre><code>git clone https://github.com/offensive-security/exploit-database.git /opt/exploit-database
+</code></pre>
+
+<p>更容易的使用，添加进$PATH环境变量中：</p>
+<pre><code>root@zusheng:~# echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+root@zusheng:~#
+</code></pre>
+
+<p>当然你也可以在你的主目录下建立一个软链接方便使用</p>
+<pre><code>root@zusheng:~# ln -sf /opt/exploit-database/searchsploit /root/searchsploit
+root@zusheng:~#
+</code></pre>
+
+<h3>更新SearchSploit</h3>
+<pre><code>searchsploit -u
+</code></pre>
+
+<h2>0x03 使用 SearchSploit</h2>
+<h3>查看帮助</h3>
+<pre><code>root@kali:~# searchsploit -h
+  Usage: searchsploit [options] term1 [term2] ... [termN]
+Example:
+  searchsploit afd windows local
+  searchsploit -t oracle windows
+
+=========
+ Options 
+=========
+   -c, --case  执行区分大小写的搜索（默认为不区分大小写）。
+   -e, --exact 对漏洞标题执行EXACT匹配（默认为AND）[Implies“-t”]。
+   -h, --help  显示帮助。
+   -j, --json  以JSON格式显示结果。
+   -m, --mirrorMirror 复制exploit到当前路径。
+   -o, --overflow 漏洞标题允许溢出他们的列。
+   -p, --path  显示漏洞的完整路径（如果可能，请将路径复制到剪贴板）。
+   -t, --title 只搜索利用标题（默认是标题和文件的路径）。
+   -w, --www   显示Exploit-DB.com的URL而不是本地路径。
+   -x, --examine   检查终端分页器中的exploit。
+   --colourDisable 颜色突出。
+   --idDisplay EDB-ID值，而不是本地路径。
+=======
+ Notes 
+=======
+ * Use any number of search terms.
+ * Search terms are not case sensitive, and order is irrelevant.
+   * Use '-c' if you wish to reduce results by case-sensitive searching.
+   * And/Or '-e' if you wish to filter results by using an exact match.
+ * Use '-t' to exclude the file's path to filter the search results.
+   * Remove false positives (especially when searching numbers/major versions).
+ * When updating from git or displaying help, search terms will be ignored.
+
+root@kali:~# 
+</code></pre>
+
+<h3>基本搜索</h3>
+<p>查找特定词的漏洞：</p>
+<pre><code>root@kali:~# searchsploit afd windows local
+------------------------------------------------------------------------------------------ ------------------------------
+ Exploit Title|  Path
+  | (/usr/share/exploitdb/platforms)
+------------------------------------------------------------------------------------------ ------------------------------
+Microsoft Windows 2003/XP - 'afd.sys' Privilege Escalation (K-plugin) | ./windows/local/6757.txt
+Microsoft Windows XP - afd.sys Local Kernel Denial of Service | ./windows/dos/17133.c
+Microsoft Windows XP/2003 - 'afd.sys' Privilege Escalation (MS11-080) | ./windows/local/18176.py
+Microsoft Windows - 'AfdJoinLeaf' Privilege Escalation (MS11-080) | ./windows/local/21844.rb
+Microsoft Windows - 'afd.sys' Dangling Pointer Privilege Escalation (MS14-040)| ./win_x86/local/39446.py
+Microsoft Windows 7 (x64) - 'afd.sys' Privilege Escalation (MS14-040) | ./win_x86-64/local/39525.py
+-------------------------------------------------------------------------------------- ----------------------------------
+root@kali:~# 
+</code></pre>
+
+<p>注意，SearchSploit使用AND运算符，而不是OR运算符。 使用的术语越多，将滤除的结果越多。</p>
+<p>专家提示：如果您没有收到预期的结果，请尝试使用更一般的术语进行更广泛的搜索。</p>
+<p>例如：Kernel 2.6.25 -&gt; Kernel 2.6 // Kernel 2.x</p>
+<p>提示：请不要使用缩写</p>
+<p>例如：SQLi -&gt; SQL Injection</p>
+<h3>标题搜索</h3>
+<p>默认情况下，searchsploit将检查漏洞的标题以及路径。 根据不同的搜索条件，这可能会弹出误报。可以使用“-t”选项将搜索限制为标题：</p>
+<pre><code>root@kali:~# searchsploit -t oracle windows
+---------------------------------------------------------------------------------------------- ----------------------------------
+ Exploit Title|  Path
+  | (/usr/share/exploitdb/platforms)
+---------------------------------------------------------------------------------------------- ----------------------------------
+Oracle 10g (Windows/x86) - (PROCESS_DUP_HANDLE) Local Privilege Elevation | ./windows/local/3451.c
+Oracle 9i XDB (Windows/x86) - FTP UNLOCK Overflow | ./windows/remote/16714.rb
+Oracle 9i XDB (Windows/x86) - FTP PASS Overflow   | ./win_x86/remote/16731.rb
+Oracle 9i XDB (Windows/x86) - HTTP PASS Overflow  | ./win_x86/remote/16809.rb
+Oracle MySQL for Microsoft Windows - Payload Execution| ./windows/remote/16957.rb
+Oracle MySQL for Microsoft Windows - MOF Execution| ./windows/remote/23179.rb
+Oracle MySQL for Microsoft Windows - FILE Privilege Abuse | ./windows/remote/35777.rb
+---------------------------------------------------------------------------------------------- ----------------------------------
+root@kali:~# searchsploit -t oracle windows | wc -l
+12
+root@kali:~# searchsploit oracle windows | wc -l
+86
+root@kali:~# 
+</code></pre>
+
+<p>如果我们没有使用-t选项，我们将有81条结果，注意有五行不是结果。</p>
+<h3>管道输出（删除不需要的结果）</h3>
+<p>searchsploit的输出可以通过管道传输到任何其他程序，这在以JSON格式为输出结果（使用“-j”选项）时特别有用。 有了这个，可以通过使用grep删除任何不必要的exploit。 在以下示例中，我们使用grep去掉目录为<code>/dos/</code>的结果：</p>
+<pre><code>root@kali:~# searchsploit XnView | grep -v '/dos/'
+-------------------------------------------------------------------------------------------------- ----------------------------------
+ Exploit Title|  Path
+  | (/usr/share/exploitdb/platforms)
+-------------------------------------------------------------------------------------------------- ----------------------------------
+XnView 1.90.3 - '.xpm' Local Buffer Overflow  | ./windows/local/3777.c
+XnView 1.92.1 - Slideshow (FontName) Buffer Overflow  | ./windows/local/5346.pl
+XnView 1.93.6 - '.taac' Local Buffer Overflow (PoC)   | ./windows/local/5951.c
+XnView 1.92.1 - Command-Line Arguments Buffer Overflow| ./windows/remote/31405.c
+XnView 1.97.4 - MBM File Remote Heap Buffer Overflow  | ./windows/remote/34143.txt
+-------------------------------------------------------------------------------------------------- ----------------------------------
+root@kali:~# searchsploit XnView | wc -l
+22
+root@kali:~# searchsploit XnView | grep -v '/dos/' | wc -l
+10
+root@kali:~# 
+</code></pre>
+
+<h3>复制到剪贴板</h3>
+<p>现在我们已经找到了漏洞，现在我们可以通过-p选项快速复制路径。</p>
+<pre><code>root@kali:~# searchsploit 39446
+-------------------------------------------------------------------------------------------------- ----------------------------------
+ Exploit Title|  Path
+  | (/usr/share/exploitdb/platforms)
+-------------------------------------------------------------------------------------------------- ----------------------------------
+Microsoft Windows - 'afd.sys' Dangling Pointer Privilege Escalation (MS14-040)| ./win_x86/local/39446.py
+-------------------------------------------------------------------------------------------------- ----------------------------------
+root@kali:~# searchsploit -p 39446
+Exploit: Microsoft Windows - 'afd.sys' Dangling Pointer Privilege Escalation (MS14-040)
+   Path: /usr/share/exploitdb/platforms/win_x86/local/39446.py
+
+Copied the file path to the clipboard.
+root@kali:~# /usr/share/exploitdb/platforms/win_x86/local/39446.py
+</code></pre>
+
+<h3>复制到文件夹</h3>
+<p>我们建议您不要更改数据库的本地副本中的漏洞利用。我们可以把脚本复制到一个文件夹中。</p>
+<pre><code>root@kali:~# searchsploit MS14-040
+--------------------------------------------------------------------------------- ----------------------------------
+Exploit Title| URL
+ | (/usr/share/exploitdb/platforms)
+--------------------------------------------------------------------------------- ----------------------------------
+Microsoft Windows - 'afd.sys' Dangling Pointer Privilege Escalation (MS14-040)   | /win_x86/local/39446.py
+Microsoft Windows 7 (x64) - 'afd.sys' Privilege Escalation (MS14-040)| /win_x86-64/local/39525.py
+--------------------------------------------------------------------------------- ----------------------------------
+root@kali:~#
+root@kali:~# searchsploit -m 39446 39525
+Exploit: Microsoft Windows - 'afd.sys' Dangling Pointer Privilege Escalation (MS14-040)
+URL: https://www.exploit-db.com/exploits/39446/
+   Path: /usr/share/exploitdb/platforms/win_x86/local/39446.py
+Copied to '/root/'
+
+Exploit: Microsoft Windows 7 (x64) - 'afd.sys' Privilege Escalation (MS14-040)
+URL: https://www.exploit-db.com/exploits/39525/
+   Path: /usr/share/exploitdb/platforms/win_x86-64/local/39525.py
+Copied to '/root/'
+
+root@kali:~#
+</code></pre>
+
+<h3>Exploit-DB在线</h3>
+<p>使用-w选项我们就可以看见exploit在Exploit-DB上的URL：</p>
+<pre><code>root@kali:~# searchsploit WarFTP 1.65 -w
+---------------------------------------------------------------------------------------- --------------------------------------------
+ Exploit Title  |  URL
+---------------------------------------------------------------------------------------- --------------------------------------------
+WarFTP 1.65 (Windows 2000 SP4) - (USER) Remote Buffer Overflow  | https://www.exploit-db.com/exploits/3474/
+WarFTP 1.65 - (USER) Remote Buffer Overflow SEH Overflow| https://www.exploit-db.com/exploits/3482/
+WarFTP 1.65 - (USER) Remote Buffer Overflow | https://www.exploit-db.com/exploits/3570/
+---------------------------------------------------------------------------------------- --------------------------------------------
+root@kali:~# 
+</code></pre>
+
+<h2>0x04 结束</h2>
+<p>本篇工具文档介绍到这了，希望大家多多关注我的博客，本博客持续更新安全界内最新技术分析及基础教程。</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
