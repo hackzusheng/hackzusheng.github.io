@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nmap基础教程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h3>Nmap基础教程</h3>
+<h3>Author：face(ZuSheng-Security成员)</h3>
+<h3>Link：<a href="http://www.isbase.cc">http://www.isbase.cc</a></h3>
+<h2>0x01 前言</h2>
+<p>Nmap为笔者最常接触的网络安全工具。在此展示一些常见的用法。</p>
+<p><strong>此教程包含下列领域</strong></p>
+<ul>
+<li>Nmap的歷史资料</li>
+<li>Nmap的安装</li>
+<li>网络的基本知识(OSI,TCP/IP,UDP)</li>
+<li>Nmap的基本命令行参数</li>
+<li>扫描的模式</li>
+<li>进阶参数设定</li>
+</ul>
+<h2>0x02 Nmap简介及安装</h2>
+<p><img src="image/1.png" /></p>
+<p>Nmap (<em>“Network Mapper(网络映射器)”</em>)是一款开放源代码的网络探测和安全审核的工具。
+它的设计目标是快速地扫描大型网络，当然用它扫描单个主机也没有问题。</p>
+<p>Nmap以新颖的方式使用原始IP报文来发现网络上有哪些主机，那些主机提供什么服务(应用程序名和版本)，那些服务运行在什么操作系统(包括版本信息)， 它们使用什么类型的报文过滤器/防火墙，以及一堆其它功能。</p>
+<p>虽然Nmap通常用于安全审核，许多系统管理员和网络管理员也用它来做一些日常的工作。</p>
+<p>对于安全审核方面，Nmap通常用在资讯搜集阶段，用于搜集目标主机的基本状态资讯。扫描结果可以作为漏洞扫描、漏洞利用和权限提升阶段的输入。例如，业界流行的漏洞扫描工具Nessus与漏洞利用工具Metasploit都支援匯入Nmap的XML输出格式，而Metasploit框架内也整合了Nmap工具（支援Metasploit直接扫描）。</p>
+<p><strong>功能:</strong></p>
+<ul>
+<li>扫描网络上的设备(是否上缐)</li>
+<li>漏洞,后门侦测</li>
+<li>探测网络主机服务清单</li>
+<li>对服务器进行端口扫描</li>
+<li>管理服务升级排程</li>
+<li>对远端主机进行监控</li>
+<li>对特定端口进行爆破(字典攻击)</li>
+<li>撰写NSE(Nmap Scripting Engine)脚本实施高阶侦测</li>
+<li>...以上简述</li>
+</ul>
+<p><strong>歷史资料</strong></p>
+<ol>
+<li>原始作者:	<em>Gordon Lyon &quot;Fyodor&quot;</em></li>
+<li>原始释出时间:	<em>1997年九月一日</em></li>
+<li>开发语言:	<em>C,C++,Python,Lua</em></li>
+<li>原始相容性: 原本仅可在Linux下以gcc编译，2000年12月7日正式释出Windows版本(Nmap 2.54BETA16)</li>
+<li>2006年12月NSE(nmap scripting engine)整合进Nmap，用户能自行撰写脚本(使用Lua)使其成为可客制化的漏洞搜索引擎。</li>
+</ol>
+<p><strong>安装</strong></p>
+<ul>
+<li>Windows 自官方下载安装或免安装版，或手动编译(耗时)。</li>
+<li>Mac OS X 自官方下载安装档案，或手动编译(耗时)</li>
+<li>Debian/Ubuntu: </li>
+<li>步骤 1(更新系统): <code>sudo apt-get update</code></li>
+<li>步骤 2(安装Nmap): <code>sudo apt-get install nmap</code> </li>
+</ul>
+<p><strong>手动编译安装(适用于Linux)</strong></p>
+<p><strong>步骤 1(下载源码包):</strong></p>
+<pre><code>wget https://nmap.org/dist/nmap-7.40.tar.bz2
+</code></pre>
+
+<p><img src="image/2.png" /></p>
+<p><strong>步骤 2(解压源码包):</strong></p>
+<pre><code>tar xvf nmap-7.40.tar.bz2
+</code></pre>
+
+<p><img src="image/3.png" /></p>
+<p><strong>步骤 3(进入目录):</strong></p>
+<pre><code>cd nmap-7.40/
+</code></pre>
+
+<p><img src="image/4.png" /></p>
+<p><strong>步骤 4(建立编译档案):</strong></p>
+<pre><code>./configure
+</code></pre>
+
+<p><img src="image/5.png" /></p>
+<p><strong>步骤 5(编译):</strong></p>
+<pre><code>make
+</code></pre>
+
+<p><img src="image/6.png" /></p>
+<p><strong>步骤 6(安装):</strong></p>
+<pre><code>sudo make install
+</code></pre>
+
+<p><img src="image/7.png" /></p>
+<p><strong>步骤 7(测试，展示版本名):</strong></p>
+<pre><code>nmap --version
+</code></pre>
+
+<p><img src="image/8.png" /></p>
+<h2>0x03 基本网络知识</h2>
+<p>首先，我们必需确定我们的目标是在局域网内还是在广域网呢?
+当我们与目标身处在同一局域网内时，我们可以直接对其施行完整的端口扫描，无须考虑端口被交换机或路由器屏蔽的问题。但若目标处于广域网时，我们必须考虑上述问题。因为广域网上的IP地址可能被多台主机共用，这时我们只能透过对端口进行更详密的探测(例:端口上运行的服务状态,服务版本)，此时Nmap强大的服务版本探测，旗帜攫取功能便派上用场。</p>
+<p>现在我们必须理解一些网络的基础协议。
+这是一张OSI(Open System Interconnection)模型图，是国际标准化组织(ISO)提出的一个试图使各种计算机在世界范围内互连为网络的标准框架。</p>
+<p><img src="image/9.jpg" /></p>
+<p>注意上图中的第四层(传输层)，传输层(TPDU,Transport Protocol Data Unit)负责了端对端的连接。该层包含最重要的TCP及UDP协议。</p>
+<p>TCP(Transmission Control Protocol)和UDP(User Datagram Protocol)协议皆建立在网络层上，而网络层上最常用的协议就是IP。这就是为什么有TCP/IP这种说法，UDP/IP说法则较为少用。网络层IP提供的是一种不可靠的服务。也就是说，它只是尽可能快地把分组从源结点送到目的结点，但是并不提供任何可靠性保证。虽然TCP使用不可靠的IP服务，但它却提供一种可靠的运输层服务。</p>
+<p>网络协议通常分不同层次进行开发，每一层分别
+负责不同的通信功能。一个协议族，比如TCP/IP，是一组不同层次上的多个协议的组合。
+<img src="image/10.png" /></p>
+<p><strong>TCP与UDP的不同:</strong></p>
+<ul>
+<li>TCP传输时须验证资料确保资料无损，UDP则无，故后者效率较快。</li>
+<li>TCP在连接时须透过三次握手完成连接，因此是可靠协议，UDP则不用，为不可靠连接。</li>
+<li>TCP可用于传输大量数据，UDP则适用于小量且不在乎可靠性的传输。</li>
+<li>TCP是有序的传输(数据报的抵达有先后之分)，UDP为无序传输。</li>
+<li>UDP适用于要求高速，效率的传输，而不计较可靠性。</li>
+</ul>
+<p>TCP内的协议: <code>HTTP, HTTPs, FTP, SMTP, Telnet</code>	</p>
+<p>UDP内的协议: <code>DNS, DHCP, TFTP, SNMP, RIP, VOIP</code></p>
+<p>最后，你必须知道Nmap扫描后端口回传的状态意思。</p>
+<p><strong>Nmap扫描后回覆的端口状态有六种，如下--&gt;</strong></p>
+<ol>
+<li>
+<p><code>open</code> : </p>
+<p>该端口正被应用程序使用。</p>
+</li>
+<li>
+<p><code>closed</code> : </p>
+<p>端口回应了扫描，当前并没有应用程序在使用该端口。</p>
+</li>
+<li>
+<p><code>filtered</code> : </p>
+<p>扫描可能被防火墙设备,路由器规则,或软件防火墙过滤。</p>
+</li>
+<li>
+<p><code>unfiltered</code> : </p>
+<p>扫描未被屏蔽，但Nmap无法决定该端口的状态。这是最少见的情况。</p>
+</li>
+<li>
+<p><code>open/filtered</code> : </p>
+<p>Nmap无法确定端口是开放或屏蔽的。例子:开放的端口不回覆扫描。</p>
+</li>
+<li>
+<p><code>close/filtered</code> : </p>
+<p>Nmap无法确定端口为关闭或未被过滤的。</p>
+</li>
+</ol>
+<h2>0x04 Nmap的基础语法</h2>
+<p>在此教程中，我将以<code>http://scanme.nmap.org/</code>及本地IP当作目标，前者是Nmap官方提供的合法扫描对象。</p>
+<p><strong>指令一</strong>:<em>预设的扫描模式(不带参数):</em></p>
+<pre><code>nmap scanme.nmap.org
+</code></pre>
+
+<p><img src="image/11.png" /></p>
+<p>该指令将会扫描目标上超过1660个TCP端口。</p>
+<p>在Nmap的预设模式中，若当前用户没有足够的权限去使用原生端口，
+则会使用TCP连接模式(也就是 <code>-sT</code>)。反之，则使用TCP SYN模式(<code>-sS</code>)端口扫描。
+SYN模式比TCP连接模式快(且较为隐密)，因为SYN模式下的Nmap不会完成TCP三次握手连接。所以一次可以对上千个端口快速扫描。</p>
+<p><strong>指令二</strong>:<em>在Nmap中储存输出的结果:</em></p>
+<pre><code>nmap scanme.nmap.org -oA output
+</code></pre>
+
+<p><img src="image/12.png" /></p>
+<p>Nmap会输出上列三个档案到当前位置(也可指定特定格式)。</p>
+<ul>
+<li>output.nmap 为可以直接读懂的输出档案(<code>-oN</code>)</li>
+<li>output.xml 为xml格式包含时间细节的档案(<code>-oX</code>)</li>
+<li>output.gnmap 为可用grep轻易查找的档案(grep为linux指令,用以查询文档中的资料)(<code>-oG</code>)</li>
+</ul>
+<p><strong>指令三</strong>:<em>扫描端口上的服务</em></p>
+<pre><code>nmap -sV scanme.nmap.org
+</code></pre>
+
+<p><img src="image/13.png" /></p>
+<p>如上图所示，nmap显示了当前端口运行的服务。</p>
+<p>可以添加<code>--reason</code>选项，它会在输出结果加上TCP连接的回覆。</p>
+<pre><code>nmap --reason -sV scanme.nmap.org
+</code></pre>
+
+<p>如下图。</p>
+<p><img src="image/14.png" /></p>
+<p><code>syn-ack</code>表示我们成功接收该端口的回覆。
+<code>no-response</code>代表着该端口的回覆没给我们任何的回覆(<code>filtered</code>)。
+<code>syn-ack</code>对应到下图中的第二次连接。</p>
+<p><img src="image/15.jpg" /></p>
+<p><strong>指令四：</strong><em>使用Nmap探测<strong>主机作业系统</strong>(需要较高权限)</em></p>
+<pre><code>nmap 127.0.0.1 -O
+</code></pre>
+
+<p><img src="image/16.png" /></p>
+<p><strong>用途：</strong>Nmap会自动针对目标主机端口上运行的服务进行探测，并且会在指纹资料库(nmap-os-db)中比对。有时准确度不高，但Nmap可以自动猜测最接近的类型。上图中，我们还得到了目标主机的Mac地址(必须在同一区网)。Device type为装置类型，Running为工作系统，OS CPE指的是Common Platform Enumeration(常见系统枚举)，OS details展示了该主机可能运行的系统，Network Distance则为网络距离(经过的路由数)。</p>
+<p><strong>指令五：</strong><em>使用Nmap对大量IP进行<strong>DNS反向查询</strong></em></p>
+<pre><code> nmap 64.233.189.130-139 -sL
+</code></pre>
+
+<p><img src="image/17.png" /></p>
+<p><strong>用途：</strong>可在得知主机上缐情况的同时，查询目标DNS名称。此方式不会发送任何封包到目标主机。</p>
+<p><strong>指令六：</strong><em>使用Nmap追踪到<strong>目标主机的路径</strong>(需要较高权限)</em></p>
+<pre><code>nmap --traceroute 192.168.1.104
+</code></pre>
+
+<p><img src="image/18.png" /></p>
+<p><strong>用途：</strong>这参数可配合其他端口扫描选项一起使用。但不可同时与<code>-sT</code>,<code>sI</code>混杂。</p>
+<p><strong>指令七：</strong><em>快速<strong>少端口</strong>扫描</em></p>
+<pre><code>nmap -F 192.168.1.104
+</code></pre>
+
+<p><img src="image/19.png" /></p>
+<p><strong>用途：</strong>这参数可配合其他端口扫描选项一起使用，用于对目标主机上前一百个最常用的端口进行扫描。</p>
+<h4>Nmap接受的目标IP格式</h4>
+<p><strong>范例</strong></p>
+<p>主机名: <code>nmap scanme.nmap.org</code></p>
+<p>IPv4地址:<code>nmap 127.0.0.1</code></p>
+<p>IPv6地址:<code>nmap -6 ::1</code></p>
+<p>多目标模式:<code>nmap 192.168.0.1-100</code>,<code>nmap 192.168.0.*</code></p>
+<p>CIDR地址模式：<code>mmap 192.168.0.1/24</code></p>
+<p>从档案中读取：<code>nmap -iL [档案名]</code></p>
+<p>随机取得IP扫描：<code>nmap -iR [IP数量]</code></p>
+<p>排除特定IP选项：<code>nmap -exclude [特定IP]</code></p>
+<h4>Nmap接受的端口格式</h4>
+<p><strong>范例一：</strong><em>扫描单一端口。</em></p>
+<pre><code>nmap -p 22 127.0.0.1
+</code></pre>
+
+<p><strong>范例二：</strong><em>指定端口名，注意：可能会执行多端口扫描。</em></p>
+<pre><code>nmap -p ssh 127.0.0.1
+</code></pre>
+
+<p><strong>范例三：</strong><em>使用多端口指定选项，以逗号分开。</em></p>
+<pre><code>nmap -p 22,25,80 127.0.0.1
+</code></pre>
+
+<p><strong>范例四：</strong><em>使用分散式多端口选项。</em></p>
+<pre><code>nmap -p80-85,443,8000-8005,8080-8085 127.0.0.1
+</code></pre>
+
+<p><strong>范例五：</strong><em>指定端口范围。本例指定所有小于等于100，大于等于60000的端口。</em></p>
+<pre><code>nmap -p-100,60000- 127.0.0.1
+</code></pre>
+
+<p><strong>范例六：</strong><em>扫描所有端口，排除零。</em></p>
+<pre><code>nmap -p- 127.0.0.1
+</code></pre>
+
+<p><strong>范例七：</strong><em>分开扫描TCP,UDP的端口。(T为TCP，U为UDP)</em></p>
+<pre><code>nmap -pT:21:23:110,U:53,111,137,161 127.0.0.1
+</code></pre>
+
+<p><strong>范例八：</strong><em>使用通配符(wildcard)名模式。以下范例将包含http(80),http-mgmt(280),https(443),http-proxy(8080)。</em></p>
+<pre><code>nmap -p http* 127.0.0.1
+</code></pre>
+
+<h2>0x05标准扫描模式</h2>
+<p>以下为一些常见的端口扫描/主机探测模式。
+我将一一为各位介绍。</p>
+<p><strong>主机探测模式一</strong>：<em>IP协定的Ping探测(需要较高权限)</em></p>
+<pre><code>nmap -PO 192.168.1.107
+</code></pre>
+
+<p><img src="image/20.png" /></p>
+<p><strong>说明：</strong>用Ping侦测的方式得知主机是否上缐，预设协定为ICMP,IGMP,IP-in-IP。</p>
+<p><strong>主机探测模式二</strong>：<em>不使用Ping的探测</em></p>
+<pre><code>nmap -Pn 192.168.1.101
+</code></pre>
+
+<p><img src="image/21.png" /></p>
+<p><strong>用途：</strong>Nmap在一般模式下，会先运行Ping扫描后再对主机进行端口扫描。当某台上缐主机没有对Ping响应时，Nmap就有可能会漏掉该台主机上运行的服务及端口。此时，可以使用该指令跳过预设的Ping侦测，直接对该主机实行完整的端口扫描。但由于这选项有可能使Nmap去扫描未上缐的主机端口，所以运行时间会拉长。</p>
+<p><strong>主机探测模式三</strong>：<em>使用<strong>TCP SYN ping</strong>探测</em></p>
+<pre><code>nmap -PS 192.168.1.101-110
+</code></pre>
+
+<p><img src="image/22.png" /></p>
+<p><strong>说明：</strong>Nmap会送出一个SYN封包，并且监听目标主机的响应。</p>
+<p><strong>主机探测模式四</strong>：<em>使用<strong>TCP ACK ping</strong>探测</em></p>
+<pre><code>nmap -PA 192.168.43.210-220
+</code></pre>
+
+<p><img src="image/23.png" /></p>
+<p><strong>说明：</strong>Nmap会送出一个ACK封包，并且监听目标主机的响应。跟上述的选项一样，这对阻止标准ICMP ping扫描模式挺有效的。</p>
+<p><strong>主机探测模式五</strong>：<em>使用<strong>UDP ping</strong>探测目标主机(需要较高权限)</em></p>
+<pre><code>nmap -PU 192.168.43.210-220
+</code></pre>
+
+<p><img src="image/24.png" /></p>
+<p><strong>说明：</strong>Nmap会送出一个UDP封包到目标主机，假如返回的讯息为ICMP Port Unreachable，即可得知主机当前为上缐的。</p>
+<p><strong>主机探测模式六</strong>：<em>使用<strong>ARP ping</strong>探测目标主机</em></p>
+<pre><code>nmap -PR 192.168.1.100-110
+</code></pre>
+
+<p><img src="image/25.png" /></p>
+<p><strong>说明：</strong>通常我们会使用该选项对乙太内网扫描，速度较传统的Ping探测来的快。当我们对内网扫描时，Nmap会自动採用此选项。可以用<code>--disable-arp-ping</code>对其禁用。</p>
+<p><strong>主机探测模式七</strong>：<em>告诉Nmap在完成探测后，不对目标主机进行端口扫描。(需要较高权限)</em></p>
+<pre><code>nmap -PO -sn 192.168.1.100
+</code></pre>
+
+<p><img src="image/26.png" /></p>
+<p><strong>说明：</strong>观察上图与<strong>主机探测模式一</strong>的截图。该选项可单独使用，也可整合<code>-P*</code>选项。预设的<code>-sn</code>探测为一个ICMP echo请求加上一个TCP SYN封包到端口443再加上一个TCP ACK封包到端口80，最后再加上一个ICMP timestamp请求。当以较低权限执行此命令时，Nmap只会送出两个TCP SYN封包到端口80,443。</p>
+<p><strong>主机探测模式八</strong>：<em>使用<strong>SCTP INIT ping</strong>探测(需要较高权限)</em></p>
+<pre><code>nmap -PY 192.168.1.107
+</code></pre>
+
+<p><img src="image/27.png" /></p>
+<p><strong>说明：</strong>Nmap会送出一个包含INIT块的SCTP协定封包到目标主机，并等待响应。当目标主机回覆INIT-ACK(端口开放)或ABORT(端口关闭)时，我们就知道该主机为上缐的。</p>
+<p><strong>主机探测模式九</strong>：<em>使用<strong>ICMP ECHO ping</strong>探测目标主机(需要较高权限)</em></p>
+<pre><code>nmap -PE 192.168.1.107
+</code></pre>
+
+<p><img src="image/28.png" /></p>
+<p><strong>说明</strong>：Nmap会送出ICMP type 8(Echo Request,请求回应讯息)封包到目标主机，并等待目标主机回传ICMP type 0(Echo Reply,回应讯息)封包以得知其存活状态。</p>
+<p><strong>主机探测模式十</strong>：<em>使用<strong>ICMP Timestamp ping</strong>探测目标主机(需要较高权限)</em></p>
+<pre><code>nmap -PP 192.168.1.104
+</code></pre>
+
+<p><img src="image/29.png" /></p>
+<p><strong>说明</strong>：Nmap会送出ICMP type 13(Timestamp Request,要求对方送出时间讯息，用以计算路由时间的差异，以满足同步性协定的要求)封包到目标主机，并等待目标主机回传ICMP type 14(Timestamp Reply,回应ICMP type 13讯息)封包以得知其存活状态。</p>
+<p><strong>主机探测模式十一</strong>：<em>使用<strong>ICMP Address mask ping</strong>探测目标主机(需要较高权限)</em></p>
+<pre><code>nmap -PM 192.168.1.104
+</code></pre>
+
+<p><img src="image/30.png" /></p>
+<p><strong>说明</strong>：Nmap会送出ICMP type 17(Address Mask Request,查询子网络mask设定讯息)封包到目标主机，并等待目标主机回传ICMP type 18(Address Mask Reply,回应子网络mask查询讯息)封包以得知其存活状态。</p>
+<p><strong>端口扫描模式一：</strong><em>使用Nmap进行<strong>TCP连接扫描</strong></em></p>
+<pre><code>nmap -sT 127.0.0.1
+</code></pre>
+
+<p><img src="image/31.png" /></p>
+<p><strong>说明</strong>：此模式下Nmap必须与目标主机完成一次标准的TCP三次握手连接。速度及隐密性较TCP SYN扫描差。</p>
+<p><strong>端口扫描模式二：</strong><em>使用Nmap进行<strong>TCP SYN扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sS 127.0.0.1
+</code></pre>
+
+<p><img src="image/32.png" /></p>
+<p><strong>说明</strong>：此模式下Nmap并不会与目标主机完成TCP连接三次握手，故又称为半开放连接，优点是快速且较标准TCP连接扫描(<code>-sT</code>)隐密。预设模式下，Nmap会自动使用此选项(必须拥有足够的权限，否则Nmap会退回<code>-sT</code>模式)。</p>
+<p><strong>端口扫描模式三：</strong><em>使用Nmap进行<strong>TCP ACK扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sA 127.0.0.1
+</code></pre>
+
+<p><img src="image/33.png" /></p>
+<p><strong>用途：</strong>跟上述的扫描模式不同，这通常用来蒐集防火墙设置的资讯。回覆的结果通常为unfiltered或filtered。在端口为开放或关闭的情况时，遵循RFC协议的目标主机会回传RST(reset)数据包。</p>
+<p><strong>端口扫描模式四：</strong><em>使用Nmap进行<strong>UDP服务扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sU tick.ucla.edu -p123
+</code></pre>
+
+<p><img src="image/34.png" /></p>
+<p><strong>用途：</strong>在某些主机上通常只对外开放UDP端口(例:VPN,NTP服务器)，在这种情况下我们必须使用该种扫描模式确定主机当前状态。我们在上图中的范例示范了对tick.ucla.edu这台公共NTP服务器进行了端口123(NTP)的扫描。</p>
+<p><strong>端口扫描模式五：</strong><em>使用Nmap进行<strong>TCP NULL扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sN 127.0.0.1
+</code></pre>
+
+<p><img src="image/35.png" /></p>
+<p><strong>用途：</strong>在这种模式扫描下，送出的封包头不会有任何的旗帜。目标主机接收到后，通常会直接丢弃(open|filtered)。但在一些特殊的情况下，目标主机会回传RST封包。此时该端口有可能就是关闭的(closed)。此扫描模式通常只对Unix,Unix-like机器有效(例如：老旧的服务器，不安全的防火墙设置),Windows无效。这个现象主要是因为不是每个系统都遵循RFC 793协议。此种模式相较于FIN扫描较易察觉。</p>
+<p><strong>端口扫描模式六：</strong><em>使用Nmap进行<strong>TCP FIN扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sF 127.0.0.1
+</code></pre>
+
+<p><img src="image/36.png" /></p>
+<p><strong>用途：</strong>此种模式下，Nmap送出的数据包有着FIN的标记。在遵循RFC协议的主机中，关闭中的端口只要接收到不是标记着SYN,ACK,RST的数据包的话，就会回传RST(reset)数据包回去(closed)。反之，端口将直接丢弃封包(open|filtered)。这可以有效且快速地分辩哪些端口是关闭的，且较不易被察觉。</p>
+<p><strong>端口扫描模式七：</strong><em>使用Nmap进行<strong>XMAS 扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sX 127.0.0.1
+</code></pre>
+
+<p><img src="image/37.png" /></p>
+<p><strong>用途：</strong>此种模式下，Nmap送出的数据包会有FIN,PSH,URG标记。由于不是RFC协议中合法的数据包格式，所以目标主机会回传RST封包，原理同上述的NULL,FIN扫描。有时可能会接收到filtered，这代表着发生了ICMP封包无法抵达目标主机情况。此种模式相较于FIN扫描较易察觉。</p>
+<p><strong>端口扫描模式八：</strong><em>使用Nmap进行<strong>SCTP扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sY 127.0.0.1
+</code></pre>
+
+<p><img src="image/38.png" /></p>
+<p><strong>用途：</strong>SCTP（Stream Control Transmission Protocol，流控制传输协议）用于通过IP网传输SCN（Signaling Communication Network，信令通信网）窄带信令消息，它是SIGTRAN协议族的一部分。通常用于SS7/SIGTRAN相关的服务。
+这有点像是TCP SYN扫描，因为它并不会完成完整的SCTP握手连接，使它可以快速地对大量端口扫描，也相对的较为隐密。</p>
+<p><strong>端口扫描模式九：</strong><em>使用Nmap进行<strong>SCTP COOKIE ECHO扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sZ 127.0.0.1
+</code></pre>
+
+<p><img src="image/39.png" /></p>
+<p><strong>用途：</strong>该扫描为进阶版的SCTP扫描模式，由于遵守SCTP协定的服务在接收到COOKIE ECHO封包后，若该端口为开放或屏蔽的(open/filtered)，会自动丢弃，反之，若该端口为关闭的(close)，会回传ABORT封包。根据该模式，Nmap可以决定该端口当前的状态。这比上述的扫描模式更为隐密，但仍可以被优良的安全系统侦测到。</p>
+<p><strong>端口掃描模式十：</strong><em>使用Nmap進行<strong>TCP Window 掃描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sW 192.168.43.231
+</code></pre>
+
+<p><img src="image/40.png" /></p>
+<p><strong>用途：</strong>该扫描方式就像是TCP ACK扫描(<code>-sA</code>)，但是我们可以透过它去扫描一些特殊的作业系统并得到與其相关的端口信息。</p>
+<p><strong>端口掃描模式十一：</strong><em>使用Nmap進行<strong>TCP Maimon 扫描</strong>(需要较高权限)</em></p>
+<pre><code>nmap -sM 192.168.43.231
+</code></pre>
+
+<p><img src="image/41.png" /></p>
+<p><strong>用途：</strong>Maimon 扫描的名字来源于它的发现者，Uriel Maimon。他在Phrack杂志问题＃49（1996年11月）中描述的技术。这种技术与NULL，FIN和Xmas扫描类似，唯一的不同之处在于封包头包含的是FIN/ACK。</p>
+<h4>0x06进阶参数设定</h4>
+<p><strong>1.Nmap的响应时间参数值</strong></p>
+<pre><code>-T? : 问号为 0~5 的数字(数字越小，扫描时间越长，越不容易察觉,预设值为3)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+	<th>种类</th>
+	<th>initial_rtt_timeout</th>
+	<th>min_rtt_timeout</th>
+	<th>max_rtt_timeout</th>
+	<th>max_parallelism</th>
+	<th>scan_delay</th>
+	<th>max_scan_delay</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td>-T0</td>
+	<td>５分钟</td>
+	<td>预设（100微秒）</td>
+	<td>预设（10秒)</td>
+	<td>连续</td>
+	<td>5分钟</td>
+	<td>预设（1秒）</td>
+</tr>
+<tr>
+	<td>-T1</td>
+	<td>15秒</td>
+	<td>预设（100微秒）</td>
+	<td>预设（10秒)</td>
+	<td>连续</td>
+	<td>15秒</td>
+	<td>预设（1秒）</td>
+</tr>
+<tr>
+	<td>-T2</td>
+	<td>预设（1秒）</td>
+	<td>预设（100微秒）</td>
+	<td>预设（10秒)</td>
+	<td>连续</td>
+	<td>400微秒</td>
+	<td>预设（1秒）</td>
+</tr>
+<tr>
+	<td>-T3</td>
+	<td>预设（1秒）</td>
+	<td>预设（100微秒）</td>
+	<td>预设（10秒)</td>
+	<td>并行</td>
+	<td>预设(0秒)</td>
+	<td>预设（1秒）</td>
+</tr>
+<tr>
+	<td>-T4</td>
+	<td>500微秒</td>
+	<td>100微秒</td>
+	<td>1.25秒</td>
+	<td>并行</td>
+	<td>预设(0秒)</td>
+	<td>10微秒</td>
+</tr>
+<tr>
+	<td>-T5</td>
+	<td>250微秒</td>
+	<td>50微秒</td>
+	<td>300微秒</td>
+	<td>并行</td>
+	<td>预设(0秒)</td>
+	<td>5微秒</td>
+</tr>
+</tbody>
+</table>
+<p><code>initial_rtt_timeout</code>为初始探测的超时值。</p>
+<p><code>min_rtt_timeout</code>为最小探测超时值。</p>
+<p><code>max_rtt_timeout</code>为最大探测超时值。</p>
+<p><code>max_parallelism</code>为最大并行扫描值。</p>
+<p><code>scan_delay</code>为距离两次探测间，Nmap等待的时间。</p>
+<p><code>max_scan_delay</code>为距离两次探测间，Nmap等待的最大时间。</p>
+<p><strong><em>以下为更详细的参数设定</em></strong></p>
+<p><strong>当设定下列各项参数值时，不能使用<code>-Tx</code>选项</strong></p>
+<p>1,<code>--initial-rtt-timeout XXX毫秒</code> : 用于设定封包的初始超时值，通常配合<code>-Pn</code>。</p>
+<p>2,<code>--min-rtt-timeout XXX毫秒</code> : 用于设定每次封包探测时Nmap等待目标主机响应的最小时间。当目标主机响应速度很快时，该参数可大幅降低扫描时间，通常配合<code>-Pn</code>。</p>
+<p>3,<code>--max-rtt-timeout XXX毫秒</code> : 用于设定每次封包探测时Nmap等待目标主机响应的最大时间。当目标主机响应速度很快时，该参数也可大幅降低扫描时间，通常配合<code>-Pn</code>。</p>
+<p>4,<code>--max-parallelism X(数字)</code> : 用于设定最大的并行扫描数量。当x为1时，Nmap将只会同时送出一个封包，虽然运行时间会因此而加长，但有时可以绕过安全系统，或确保我们的扫描不会因为一些网络问题影响。</p>
+<p>5,<code>--min-parallelism X(数字)</code> :  用于设定最小的并行扫描数量。建议设置在10或12，这可以缩短我们对大量主机的扫描时间。</p>
+<p>6,<code>--scan-delay X秒</code> : 用于设定Nmap在送出封包后的等待时间。通常我们透过调高此值以躲避安全系统的侦测。</p>
+<p>7,<code>--max-scan-delay X秒</code> : 用于设定Nmap在送出封包后的最大等待时间。我们能透过调降此参数来提高扫描速度。</p>
+<p>8,<code>--host-timeout XXX微秒</code> : 当我们对大型网络进行
+扫描时，有时会遇到扫描缓慢的问题。这可能是因为某些安全系统透过缓慢的回覆Nmap送来的封包来有效地抵制我们的扫描，透过降低此值，Nmap将可以跳过网络上不存在的主机或某些安全系统故意的延时。(通常我会使用此参数<code>--host-timeout 5m</code>,<code>m</code>为分钟)</p>
+<p>在Nmap对目标执行扫描的同时，可以按下这些特殊键以增加对当前扫描的认识。</p>
+<p><code>v　/　V</code>：输出执行时，Nmap而外的输出选项。<code>v</code>提高Nmap输出的详细程度。<code>V</code>则是降低。</p>
+<p><code>d　/　D</code>：输出Nmap的调适资讯。<code>d</code>提高Nmap输出的调适级别。<code>D</code>则是调降。</p>
+<p><code>p　/　P</code>：打开/关闭封包的追踪。</p>
+<p><code>?</code>： 输出执行时的帮助选项。</p>
+<h2>0x07总结</h2>
+<p>希望各位能从以上我统整的命令中，学习到一些有用的知识。并且能对Nmap这款优秀的网络扫描工具有基础的了解。</p>
+<p>最后在附上三本挺不错的原文书供各位下载(解压密码：isbase.cc)。
+<a href="https://s.0xc.uk/11">點我</a></p>
+<p>假如文章有误，请尽速通知我，谢谢!</p>
+<p>回报错误用邮件地址：<code>report[at]keemail&lt;dot&gt;me</code></p>
+<p>参考资料：</p>
+<p>1,<a href="https://nmap.org/man/zh/">Nmap man page</a></p>
+<p>2,<a href="https://s.0xc.uk/10">Nmap Cheat Sheet: From Discovery to Exploits, Part 1</a></p>
+<p>3,<a href="https://s.0xc.uk/-">Nmap Cheat Sheet: From Discovery to Exploits, Part 2</a></p>
+<p><strong>转载请注明来自<code>ZuSheng Security</code>（<a href="http://isbase.cc/">IsBase.CC</a>）</strong></p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
