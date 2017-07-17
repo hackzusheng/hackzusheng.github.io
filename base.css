@@ -5,6 +5,9 @@
     padding: 0;
     vertical-align: baseline;
 }
+li{
+	list-style-type:none;	
+}
 body{
 	background:#292929 none repeat scroll 0 0;
 }
