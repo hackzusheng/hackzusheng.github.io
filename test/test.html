@@ -4,6 +4,13 @@
 	<title>测试一下</title>
 </head>
 <body>
-<a href="http://ec2-13-58-146-2.us-east-2.compute.amazonaws.com/xss4.php">你好啊</a>
+<form   id="xss"
+        name="xss"
+        method="GET"
+        action="http://ec2-13-58-146-2.us-east-2.compute.amazonaws.com/xss4.php">
+</form>
+<script>
+document.getElementById("xss").submit();
+</script>
 </body>
 </html>
