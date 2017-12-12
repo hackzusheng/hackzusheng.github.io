@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>游戏安全系列教程之水果忍者</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>游戏安全系列教程之水果忍者</h1>
+<h3>Author：zusheng</h3>
+<h3>Link：<a href="http://www.isbase.cc">http://www.isbase.cc</a></h3>
+<h2>0x01 前言</h2>
+<p>很久没和大家见面了，之前这个系列也发过帖子大致介绍一下，但是并没有涉及到具体的技术讲解，现在有时间准备继续跟进一下这个系列，希望帮助到对这方面有兴趣的朋友，本篇文章我们以水果忍者这个游戏为例子讲解一下简单入门的游戏修改技术。</p>
+<h3>本篇文章所需工具：</h3>
+<p>1、CE （游戏内存修改器）</p>
+<p>Cheat Engine，简称CE，是由Eric Heijnen(网名“Dark Byte”)开发的一款开源软件，主要功能包括存储器扫描，十六进制编辑，指令反汇编，内存数据修改等功能，是一款强大的游戏修改器。Cheat Engine是最常见的游戏外挂工具，通过Cheat Engine，用户可以快速查找和修改游戏数据及更改游戏处理逻辑。</p>
+<p>下载地址：</p>
+<pre><code>链接：https://pan.baidu.com/s/1pLebzsB 密码：c4el
+</code></pre>
+
+<p>2、水果忍者（游戏）</p>
+<p>下载地址：</p>
+<pre><code>链接：https://pan.baidu.com/s/1o8A77RG 密码：fsg5
+</code></pre>
+
+<h2>0x02 基础知识</h2>
+<h3>Cheat Engine运行界面</h3>
+<img src="image/y1.png" />
+<h3>指针</h3>
+<p>在计算机科学中，指针（Pointer）是编程语言中的一个对象，利用地址，它的值直接指向（points to）存在电脑存储器中另一个地方的值。由于通过地址能找到所需的变量单元，可以说，地址指向该变量单元。因此，将地址形象化的称为“指针”。意思是通过它能找到以它为地址的内存单元。</p>
+<h3>基址</h3>
+<p>我们可以想象一棵苹果树，树有根，树上也有苹果，
+某个苹果对应某个偏移，而树根就是基址，通过基址往上找就能找到某个苹果。而找到的这个苹果，相对于有个偏移。通过基址+偏移就能确定是哪个苹果。</p>
+<h3>为什么要找基址</h3>
+<p>因为游戏退出基址不会变化，只有游戏更新后才会变化，而要是用找到的内存地址，例如：血的内存地址，游戏退出是会变化的，不方便我们编写辅助调用。</p>
+<h2>0x03 实例：修改水果忍者游戏时间</h2>
+<p>步骤1、打开Cheat Engine</p>
+<img src="image/y1.png" />
+<p>步骤2、运行水果忍者游戏，进入游戏后我们先Esc暂停一下</p>
+<img src="image/y2.png" />
+<p>步骤3、切换到Cheat Engine，点击小电脑打开进程，在进程列表找到水果忍者然后点击打开</p>
+<img src="image/y3.png" />
+<p>步骤4、接下来我们使用CE的搜索功能，这里我们有两种搜索方法，精确搜索和模糊搜索。这里我们使用精确搜索。我们看时间是1:30也就是90秒，这里我们在数值栏输入90，数值类型我们选择所有类型。点击首次扫描。</p>
+<img src="image/y4.png" />
+<p>步骤5、这里我们看结果1247个，这么多到底哪个才是呢？不用怕，我们切换到游戏。玩下游戏，然后暂定。
+。</p>
+<img src="image/y5.png" />
+<p>步骤6、现在我们可以看时间是1:22也就是82秒，我们继续在数值栏中输入82然后点击再次扫描。</p>
+<img src="image/y6.png" />
+<p>步骤7、接下来我们看结果就剩下两个，地址0617615C修改后会自动还愿，地址0AAE155C就是时间地址，我们双击它。</p>
+<img src="image/y7.png" />
+<p>步骤8、这样这个地址就会出现在下面地址栏中方便我们查看了。</p>
+<img src="image/y8.png" />
+<p>步骤9、我们在数值位置双击，修改数值为100，可以发现游戏时间变成了1:40。</p>
+<img src="image/y9.png" />
+<h2>0x04 实例：寻找游戏时间的基址</h2>
+<p>现在游戏时间在内存的地址我们已经找到了，但是我们下次启动游戏的时间，这个地址是变化的，正如我们上文所说我们需要找到游戏时间的基址。</p>
+<p>步骤一、在下面的地址栏中我们右击然后选择找出是什么改写了这个地址</p>
+<img src="image/y10.png" />
+<p>步骤二、运行游戏，然后暂定返回。然后我们返回查看可以看到几条指令，我们选择查看详细信息，可以看到可能的指针数值0AAE14E0以及偏移量7C。</p>
+<img src="image/y11.png" />
+<p>步骤三、我们点击新的扫描，勾选数值栏中的Hex，然后输入我们的指针数值进行搜索。可以发现我们找到了三个地址。</p>
+<img src="image/y12.png" />
+<h3>题外话：</h3>
+<p>为什么有个地址是绿色显示的呢？</p>
+<p>绿色地址就是静态地址了，也就是我们的基址。</p>
+<img src="image/y13.png" />
+<p>上图我们可以发现其实它不变的原理就是模块地址。</p>
+<p>步骤四、找基址接下来就简单了，我们在下面地址栏中点击手动添加地址。勾选指针，我们将找到的基址输入，然后再输入我们上面得到的偏移量7C，不要忘记把数值类型改为Float，点击确定。</p>
+<img src="image/y14.png" />
+<p>步骤五、可以发现我们指针所指的数值和之前找到的时间地址的数值是一样的，我们修改指针所指的数值，时间地址的数值就会跟着变化。</p>
+<img src="image/y15.png" />
+<p>步骤六、我们保存一下。</p>
+<img src="image/y16.png" />
+<p>步骤七、我们重启游戏，关闭CE重新加载进程，将我们之前保存的地址加载进来</p>
+<img src="image/y17.png" />
+<p>步骤八、可以发现游戏时间地址已经变为0AFCAC18+7C=0AFCAC94，不过我们有基址就不用去找啦。</p>
+<img src="image/y18.png" />
+<h2>0X05 总结</h2>
+<p>编写修改器就是涉及到编程方面的知识啦，这里我不考虑修改器界面设计问题，所以我就直接选择用c语言来编写这个修改器。涉及编程大家知道的，不知道有多少人想学啊，所以这里就不在本文介绍，看大家回复意见了。最后附上一张本人战绩图。</p>
+<img src="image/y19.png" />
+
+</body>
+</html>
