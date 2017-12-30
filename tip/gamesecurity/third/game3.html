@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>游戏安全系列教程-植物大战僵尸（二）</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>游戏安全系列教程-植物大战僵尸（二）</h1>
+<h3>Author：zusheng</h3>
+<h3>Link：<a href="http://www.isbase.cc">http://www.isbase.cc</a></h3>
+<blockquote>
+<p>第二章 阳光收集功能模块分析</p>
+</blockquote>
+<h2>0x01 前言</h2>
+<p>前面两篇文章我们主要介绍了如何去寻找一些游戏数据和基址。在网络游戏中，一些关键数据都是存储在服务器上的，在本地只是显示，改了也没啥用，这里我们就要针对游戏的一些功能模块进行分析从而实现一些辅助功能。由于网络游戏不能拿来作为例子（PS：你们懂得），所以我们还是以单机游戏为例。本篇文章我们主要分析阳光收集功能模块实现自动收集阳光辅助。 </p>
+<h3>本篇文章所需工具：</h3>
+<p>1、CE （游戏内存修改器）</p>
+<p>Cheat Engine，简称CE，是由Eric Heijnen(网名“Dark Byte”)开发的一款开源软件，主要功能包括存储器扫描，十六进制编辑，指令反汇编，内存数据修改等功能，是一款强大的游戏修改器。Cheat Engine是最常见的游戏外挂工具，通过Cheat Engine，用户可以快速查找和修改游戏数据及更改游戏处理逻辑。</p>
+<p>下载地址：</p>
+<pre><code>链接：https://pan.baidu.com/s/1pLebzsB 密码：c4el
+</code></pre>
+
+<p>2、植物大战僵尸（游戏）</p>
+<p>下载地址：</p>
+<pre><code>链接：https://pan.baidu.com/s/1dFPduy1 密码：xgz2
+</code></pre>
+
+<p>Tip：本游戏有捆绑软件，安装时请去除安装捆版软件的勾选，启动游戏时有设定主页的选择，请无视它点击否。</p>
+<p>3、IDA Pro</p>
+<p>交互式反汇编器专业版（Interactive Disassembler Professional），人们常称其为IDA Pro，或简称为IDA。是目前最棒的一个静态反编译软件，为众多0day世界的成员和ShellCode安全分析人士不可缺少的利器！IDA Pro是一款交互式的，可编程的，可扩展的，多处理器的，交叉Windows或Linux WinCE MacOS平台主机来分析程序， 被公认为最好的花钱可以买到的逆向工程利器。IDA Pro已经成为事实上的分析恶意代码的标准并让其自身迅速成为攻击研究领域的重要工具。它支持数十种CPU指令集其中包括Intel x86，x64，MIPS，PowerPC，ARM，Z80，68000，c8051等等。</p>
+<pre><code>由于本软件是收费软件，这里不做分享。
+</code></pre>
+
+<h2>0x02 基础知识</h2>
+<h3>启动 IDA</h3>
+<p>打开IDA PRO你就会看见一个初始欢迎界面。上面显示了你的许可证之类的信息。初始界面消失后，IDA会显示另一个对话框，为你进你进入桌面环境提供了三个选择。</p>
+<img src="image/i1.png" />
+<ol>
+<li>New（新建）：启动一个File Open对话框来选择要分析的文件。</li>
+<li>Go（运行）：打开一个空白的工作区，这时要分析文件，可以直接将一个二进制文件拖放到IDA工作区。</li>
+<li>Previous（先前的）：可以打开下面最近用过的文件。</li>
+</ol>
+<h3>IDA 数据显示窗口</h3>
+<p>完成上面上面步骤后IDA会如下图所示：</p>
+<img src="image/i2.png" />
+<ol>
+<li>反汇编窗口：操作和分析二进制文件的主要窗口。</li>
+<li>函数窗口：列举IDA在数据库中识别的每一个函数。</li>
+<li>输出窗口：显示IDA所执行任务的有关信息。</li>
+</ol>
+<h3>跳转到地址</h3>
+<p>Jump -&gt; Jump to Address打开Jump to Address对话框</p>
+<img src="image/i3.png" />
+<p>也可以使用快捷键G键，注意在输入法英文状态下。</p>
+<h3>什么是CALL？</h3>
+<p>CALL就是相当于易语言里的子程序，相当于C++里面的函数。</p>
+<p>每个CALL都有用途，很多独立的功能都可以封装在CALL里，这样调用这个CALL也就调用了对应封装的功能。 </p>
+<p>CALL有“参数”，也有“返回值”</p>
+<p>“参数”可以是没有，也可以是多个。</p>
+<p>“返回值”一般通过EAX寄存器返回。</p>
+<h2>0x03 定位入手地址</h2>
+<p>说到分析阳光收集功能模块，首先我们要知道从哪里入手啊。为了照顾基础薄弱的读者，我会尽量做到步骤清晰，如有描述错误还请指出，谢谢。</p>
+<p>步骤一、打开游戏</p>
+<img src="image/i4.png" />
+<p>步骤二、打开CE，加载游戏进程</p>
+<img src="image/i5.png" />
+<p>步骤三、使用精确搜索方式搜索阳光数值50</p>
+<img src="image/i6.png" />
+<p>步骤四、回到游戏拾取阳光从而改变阳光数值</p>
+<img src="image/i7.png" />
+<p>步骤五、回到CE，将50修改为75点击再次扫描       </p>
+<img src="image/i8.png" />
+<p>步骤六、这样我们就找到了阳光数值的存储地址，我们右击它，选择找出是什么改写了这个地址</p>
+<img src="image/i9.png" />
+<p>步骤七、继续回到游戏拾取阳光，然后回到CE，发现我们已经找到了改变阳光的地址</p>
+<img src="image/i10.png" />
+<p>步骤八、选中它右击，选择在反汇编程序中显示地址</p>
+<img src="image/i11.png" />  
+<p>步骤九、在打开的内存浏览器中，点击视图，将显示模块地址勾去掉。</p>
+<img src="image/i12.png" />
+<p>这样我们就能和IDA PRO同步分析啦，这里地址我们早就知道了，0044BA45</p>
+<p>一个入手点我们有了，不急，我们先用IDA来分析看看。</p>
+<h2>0x04 IDA分析阳光收集功能模块</h2>
+<p>首先我们打开IDA PRO,直接点击Go打开一个空白的工作区，然后将游戏程序直接拖进去，当然以什么方式随你啦。</p>
+<img src="image/i13.png" />
+<p>我们先跳转到地址0044BA45，基础知识介绍到了，这里不再赘述。</p>
+<img src="image/i14.png" />
+<p>这个地址是增加阳光的我们先注释一下</p>
+<img src="image/i15.png" />
+<p>往上回溯，可以发现是从地址0044BA26下去的，上面是阳光数量增加量，19是十六进制，也就是十进制的25，收集一次阳光，阳光数量就增加25</p>
+<img src="image/i16.png" />
+<p>按照这个思路继续往上回溯。</p>
+<img src="image/i17.png" />
+<p>交叉引用到调用点有两处。</p>
+<p>第一处：</p>
+<img src="image/i18.png" />
+<p>第二处：（没有执行到）</p>
+<img src="image/i19.png" />
+<p>这样我们就定位到了增加阳光的逻辑过程啦</p>
+<img src="image/i20.png" />
+<h2>0x05 阳光自动收集分析</h2>
+<p>经过上面的分析我们要锁定阳光收集的关键代码也不难，这里我们可以通过阳光收集与未收集标志位不同来找到关键代码。</p>
+<p>其实很简单，我们先来尝试0和1。</p>
+<p>那么未收集很大可能就是0啦，收集就是1，我们先来试试，未收集是0，所以初始数值很可能是0，我们先使用精确搜索。</p>
+<img src="image/i21.png" />
+<p>结果很多，不用担心，我们回到游戏点击太阳进行收集，然后回到CE搜索1点击再次扫描。</p>
+<img src="image/i22.png" />
+<p>结果是不是少了很多，我们继续重复上述动作，直至找到搜集标志位。（PS:太阳出来就回到CE搜索0）</p>
+<p>为0的时候 未搜集:</p>
+<img src="image/i23.png" />
+<p>为1的时候 搜集</p>
+<img src="image/i24.png" />
+<p>找到了，我们双击这个地址。</p>
+<p>右击它，找出是什么访问了这个地址。</p>
+<img src="image/i25.png" />
+<p>回到游戏进行一次阳光收集操作，回到CE，看来已经有结果了。</p>
+<img src="image/i26.png" />
+<p>逐个分析找到关键代码：</p>
+<img src="image/i27.png" />
+<p>接下来如何实现自动阳光收集？别急。</p>
+<h2>0x06 代码注入实现自动阳光收集</h2>
+<p>上面我们已经得到一个关键地址0044C5EE，我们使用IDA跳转到这个地址分析一下。</p>
+<img src="image/i28.png" />
+<pre><code>JNZ
+
+条件转移指令JNE/JNZ
+格式: JNE/JNZ 标号
+功能: ZF＝0,转至标号处执行
+
+JMP
+
+无条件转移指令JMP
+格式: JMP OPRD
+功能: JMP指令将无条件地控制程序转移到目的地址去执行
+</code></pre>
+
+<p>我们修改跳转指令为JMP就好了。</p>
+<p>进入自动汇编：</p>
+<img src="image/i29.png" />
+<p>模板-&gt;代码注入：</p>
+<img src="image/i30.png" />    
+<p>修改跳转指令为JMP后点击执行：</p>
+<img src="image/i31.png" />  
+<p>效果演示：</p>
+<img src="image/imove.gif" />  
+<h2>0x07 总结</h2>
+<p>针对这类防御我们可以改写某些功能模块功能的标志位，防止分析得出功能的关键代码，进而实现一些辅助功能。最后感谢你能抽出时间阅读本篇文章，希望能帮助到你，谢谢。</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
