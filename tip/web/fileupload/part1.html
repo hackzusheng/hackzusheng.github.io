@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>文件上传漏洞限制绕过总结</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h3>文件上传漏洞限制绕过总结</h3>
+<h3>Author：zusheng</h3>
+<h3>Link：<a href="http://www.isbase.cc">http://www.isbase.cc</a></h3>
+<p><image src="image/p1.png" /></p>
+<h2>0x01 前言</h2>
+<p>在如今的合法渗透测试中，我们已经很难遇到不受限制的文件上传功能了。现在是不是就没有文件上传漏洞存在了呢，然后事实并非如此，往往我们可以绕过某些文件上传限制。本文就将研究Web应用程序如何处理文件上传过程以及如何验证上传文件的合法性，从而讨论如何绕过这些验证。</p>
+<p>PHP文件上传关键函数：<code>move_uploaded_file()</code></p>
+<h2>0x02 客户端过滤</h2>
+<p>客户端验证是在我们输入发送到服务器之前进行的验证，它通过JavaScript、VBScript或者HTML5在浏览器上进行验证。一般这种验证可以给用户更好的体验，提高了响应速度。</p>
+<p>例如：</p>
+<pre><code>&lt;script&gt;
+     var _validFileExtensions = [&quot;.jpg&quot;, &quot;.jpeg&quot;, &quot;.bmp&quot;, &quot;.gif&quot;, &quot;.png&quot;];
+     function filter()
+     {
+         var files = document.getElementsByTagName(&quot;input&quot;);
+        for(var i=0;i&lt;files.length;i++)
+        {
+            var oinput = files[i];
+            if(oinput.type == &quot;file&quot;){
+                var sfilename = oinput.value;
+                if(sfilename.length&gt;0)
+                {
+                    var verify = false;
+                    for(var j=0;j&lt;_validFileExtensions.length;j++)
+                    {
+                        var sFileExtension = _validFileExtensions[j];
+                        if(sfilename.substr(sfilename.length-sFileExtension.length,sFileExtension.length).toLowerCase() == sFileExtension.toLowerCase())
+                        {
+                            verify = true;
+                            break;
+                        }
+                    }
+                    if(!verify)
+                    {
+                        alert(&quot;违规文件上传&quot;);
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+     }
+&lt;/script&gt;
+</code></pre>
+
+<p>这里在客服端使用了JavaScript进行验证，限制只能上传jpg、jpeg、bmp、gif、png文件。</p>
+<p><image src="image/p2.png" /></p>
+<p>当我们试图上传一个php文件时遭到了拒绝。</p>
+<h3>客户端过滤绕过</h3>
+<p>方法1：安装浏览器插件关闭JS脚本</p>
+<p>Chrome浏览器插件ScriptBlock</p>
+<p><image src="image/p3.png" /></p>
+<p>方法2：修改文件后缀名为合法上传，然后使用Burp截取修改</p>
+<p><image src="image/p4.png" /></p>
+<h2>0x03 文件名过滤</h2>
+<p>文件名过滤是指服务器验证正在上传的文件扩展名，这个验证有很多方法，但是现在最常用的方法有两种。一种是基于黑名单验证，另一种是基于白名单验证。</p>
+<p>黑名单方式是拒绝上传存在于黑名单中扩展名的文件，如php、aspx。白名单方式是只允许上传存在于白名单中的文件扩展名，如jpg、png、gif。</p>
+<h3>基于黑名单的文件名过滤绕过</h3>
+<p>1、上传不常见的PHP扩展名来绕过黑名单</p>
+<p>pht, phpt, phtml, php3,php4,php5,php6</p>
+<p>2、文件名过滤时忽略了大小写</p>
+<p>pHp, Php, phP</p>
+<p>3、解析漏洞</p>
+<p>例如Apache和IIS解析漏洞</p>
+<h3>基于白名单的文件名过滤绕过</h3>
+<p>1、空字节注入</p>
+<p>shell.php%00.png</p>
+<p>2、双写扩展名</p>
+<p>shell.jpg.php</p>
+<h2>0x04 Content-Type和文件头过滤</h2>
+<h3>Content-Type过滤</h3>
+<p>Content-Type过滤是指服务器通过检查文件的MIME类型来决定上传是否被通过。例如我们上传一张图片时。</p>
+<p><image src="image/p5.png" /></p>
+<p>针对这种情况绕过方法也很简单，使用Burp截断，然后修改Content-Type为正常图片类型就可以了，例如修改为image/jpeg。</p>
+<p>PHP关键函数：<code>mime_content_type()</code></p>
+<h3>文件头过滤</h3>
+<p>文件头过滤主要是通过验证图片的文件头的方式来判断是不是图片文件。</p>
+<p>例如GIF图片的文件头就是GIF89a。</p>
+<p>PNG文件头</p>
+<p><image src="image/p6.png" /></p>
+<p>针对这种情况绕过也很简单，在要上传文件的文件头里面加上图片文件头就可以了。</p>
+<p>PHP关键函数：<code>getimagesize()</code></p>
+<h2>0x05 超短shell</h2>
+<p>在某些时候，服务器对上传文件的大小限制很大，这时候我们就需要把shell代码缩短至极限。</p>
+<pre><code>&lt;?=`$_GET[x]`?&gt;
+</code></pre>
+
+<p>这里利用的是PHP命令执行的特性。`号内会被当做命令执行。</p>
+<p><image src="image/p7.png" /></p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
