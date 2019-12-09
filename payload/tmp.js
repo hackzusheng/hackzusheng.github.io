@@ -1,1 +1,1 @@
-console.log(document.domain);
+alert(/x/);
