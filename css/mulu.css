@@ -12,8 +12,7 @@
 
     h2{margin: 40px 0 20px; font-size: 36px; font-weight: 400}
     h3{margin-top: 40px; font-size: 30px; font-weight: 400}
-    img{border-radius:5px;margin:30px 0 46px !important;width:100%;max-width: 1100px; opacity: .6; transition: opacity .3s}
-    img:hover{opacity: 1}
+    img{border-radius:5px;margin:30px 0 46px !important;width:100%;max-width: 1100px;}
 
 
     #write{margin:50px 50px 50px 260px; padding: 20px 60px; max-width: unset; background: #fff;border: 1px solid #E6ECF1; box-shadow: 0 2px 8px rgba(116, 129, 141, .08); border-radius: 4px}
