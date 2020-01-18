@@ -109,5 +109,5 @@
 
 
 //插入title的ico图标  
-var ico_link = "<link rel=icon type=image/png sizes=32x32 href=2html/ico.png>";
+var ico_link = "<link rel=icon type=image/png sizes=32x32 href='https://isbase.cc/ico.png'>";
 $("head").prepend(ico_link);
